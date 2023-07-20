@@ -31,7 +31,6 @@ List<Skill> skills = [
     skill: "Java",
     percentage: 20,
   ),
-
   Skill(
     skill: "Android",
     percentage: 100,
@@ -90,6 +89,7 @@ class SkillSection extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
+                      SizedBox(height: ScreenHelper.isMobile(context) ? 15: 0,),
                       Text(
                         "SKILLS",
                         style: GoogleFonts.oswald(
@@ -103,7 +103,7 @@ class SkillSection extends StatelessWidget {
                         height: 10.0,
                       ),
                       Text(
-                        "This is all the skills listed below more will be added in due time. This is all the skills listed below more will be added in due time.",
+                        "This is all the skills listed below more will be added in due time.",
                         style: TextStyle(
                           color: kCaptionColor,
                           height: 1.5,

@@ -119,7 +119,7 @@ class EducationSection extends StatelessWidget {
                                   ),
                                 ),
                                 SizedBox(
-                                  height: 40.0,
+                                  height: ScreenHelper.isMobile(context)? 15: 40.0,
                                 )
                               ],
                             ),

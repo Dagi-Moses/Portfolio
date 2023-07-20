@@ -51,41 +51,8 @@ Widget _buildUi(double width) {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
              
-              Container(
-                constraints: BoxConstraints(maxWidth: 400.0),
-                child: RichText(
-                  text: TextSpan(
-                    children: [
-                      TextSpan(
-                        text:
-                            "This is the portfolio section. There is alot of work here",
-                        style: TextStyle(color: Colors.white, height: 1.8),
-                      ),
-                      TextSpan(
-                          recognizer: TapGestureRecognizer()
-                            ..onTap = () async {
-                              const url =
-                                  'https://github.com/Dagi-Moses'; // Replace with your URL
-                              
-                              if (await canLaunchUrl(Uri.parse(url))) {
-                                await launchUrl(Uri.parse(url));
-                              } else {
-                                throw 'Could not launch $url';
-                              }
-                            },
-                          text: " click here to view my Git Hub Repository",
-                          style: TextStyle(
-                            color: kPrimaryColor,
-                            fontWeight: FontWeight.w700,
-                            height: 1.8,
-                          )),
-                    ],
-                  ),
-                ),
-              ),
-               SizedBox(
-                height: 15.0,
-              ),
+            
+      
                Text(
                 "TESTIMONIALS",
                 style: GoogleFonts.oswald(

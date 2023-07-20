@@ -11,6 +11,7 @@ List<CarouselItemModel> carouselItems = List.generate(
   (index) => CarouselItemModel(
     text: Container(
       child: Column(
+        
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,

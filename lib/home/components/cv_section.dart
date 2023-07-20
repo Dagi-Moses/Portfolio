@@ -40,6 +40,7 @@ final List<DesignProcess> designProcesses = [
 class CvSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+   
     return Container(
       width: double.infinity,
       child: ScreenHelper(
@@ -71,19 +72,25 @@ class CvSection extends StatelessWidget {
                   fontSize: 18.0,
                 ),
               ),
+              Flex(
+                
+                direction:ScreenHelper.isMobile(context)? Axis.vertical:Axis.horizontal ,
+              children: [
+              
+              
               GestureDetector(
                 onTap: () async{
                     var bytes = await rootBundle.load("assets/mycv.pdf"); // location of your asset file
-
-    final blob = html.Blob([bytes], 'application/pdf');
-    final url = html.Url.createObjectUrlFromBlob(blob);
-
-    // Create an anchor element
-    final anchor = html.AnchorElement(href: url)
-      ..setAttribute("download", "Dagi Moses Resume.pdf") // Set the filename for the downloaded file
-      ..click(); // Simulate a click on the anchor to trigger the download
-
-    html.Url.revokeObjectUrl(url);
+              
+                final blob = html.Blob([bytes], 'application/pdf');
+                final url = html.Url.createObjectUrlFromBlob(blob);
+              
+                // Create an anchor element
+                final anchor = html.AnchorElement(href: url)
+                  ..setAttribute("download", "Dagi Moses Resume.pdf") // Set the filename for the downloaded file
+                  ..click(); // Simulate a click on the anchor to trigger the download
+              
+                html.Url.revokeObjectUrl(url);
                 },
                 child: MouseRegion(
                   cursor: SystemMouseCursors.click,
@@ -97,17 +104,18 @@ class CvSection extends StatelessWidget {
                   ),
                 ),
               ),
+              SizedBox(height: 10, width: 45,),
               GestureDetector(
                 onTap: () async{
                
-
-   var bytes = await rootBundle.load("assets/mycv.pdf"); // location of your asset file
-
-   final blob = html.Blob([bytes], 'application/pdf');
-   final url = html.Url.createObjectUrlFromBlob(blob);
-   html.window.open(url, "_blank");
-   html.Url.revokeObjectUrl(url);
-
+              
+               var bytes = await rootBundle.load("assets/mycv.pdf"); // location of your asset file
+              
+               final blob = html.Blob([bytes], 'application/pdf');
+               final url = html.Url.createObjectUrlFromBlob(blob);
+               html.window.open(url, "_blank");
+               html.Url.revokeObjectUrl(url);
+              
                 },
                 child: MouseRegion(
                   cursor: SystemMouseCursors.click,
@@ -121,8 +129,9 @@ class CvSection extends StatelessWidget {
                   ),
                 ),
               ),
-            ],
-          ),
+                        ],
+                      ),
+            ]),
           SizedBox(
             height: 50.0,
           ),

@@ -1,21 +1,24 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../models/header_item.dart';
 import '../utils/constants.dart';
 import '../utils/globals.dart';
+import '../utils/screen_helper.dart';
 import 'components/carousel.dart';
 import 'components/cv_section.dart';
 import 'components/education_section.dart';
 import 'components/footer.dart';
 import 'components/header.dart';
-import 'components/ios_app_ad.dart';
+import 'components/geoflix_app.dart';
 import 'components/portfolio_stats.dart';
 import 'components/skill_section.dart';
 import 'components/testimonial_widget.dart';
-import 'components/website_ad.dart';
+import 'components/twitter_clone.dart';
 
 final scrollControllerProvider =
     StateProvider<ScrollController>((ref) => ScrollController());
@@ -146,6 +149,46 @@ class _HomeState extends ConsumerState<Home> {
                   ),
                 ),
               ),
+
+              Center(
+                child: Column(
+                  children: [
+                    Text(
+                      "OR",
+                      style: TextStyle(
+                          color: Colors.white, height: 1.8, fontSize: 16),
+                    ),
+                    RichText(
+                      text: TextSpan(
+                        children: [
+                          TextSpan(
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = () async {
+                                  const url =
+                                      'https://github.com/Dagi-Moses'; // Replace with your URL
+
+                                  if (await canLaunchUrl(Uri.parse(url))) {
+                                    await launchUrl(Uri.parse(url));
+                                  } else {
+                                    throw 'Could not launch $url';
+                                  }
+                                },
+                              text: "click here to view my Git Hub Repository,",
+                              style: TextStyle(
+                                color: kPrimaryColor,
+                                fontWeight: FontWeight.w700,
+                                height: 1.8,
+                              )),
+                        ],
+                      ),
+                    ),
+                    Text(
+                      "This is the portfolio section. There is alot of work here",
+                      style: TextStyle(color: Colors.white, height: 1.8),
+                    ),
+                  ],
+                ),
+              ),
               Padding(
                 key: ref.read(keysProvider)[5],
                 padding: const EdgeInsets.symmetric(vertical: 28.0),
@@ -157,7 +200,7 @@ class _HomeState extends ConsumerState<Home> {
               Container(
                   key: ref.read(keysProvider)[6], child: EducationSection()),
               SizedBox(
-                height: 50.0,
+                height:ScreenHelper.isMobile(context)? 0: 50.0,
               ),
               Container(key: ref.read(keysProvider)[7], child: SkillSection()),
               SizedBox(

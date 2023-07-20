@@ -54,6 +54,7 @@ class IosAppAd extends ConsumerWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        SizedBox(height: 15,),
                         Text(
                           "Mobile Application",
                           style: GoogleFonts.oswald(
