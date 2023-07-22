@@ -5,11 +5,15 @@ class FooterItem {
   final String title;
   final String text1;
   final String text2;
+  final VoidCallback onTap;
+   final int index;
 
-  FooterItem({
+  FooterItem(  {
     required this.iconPath,
     required this.title,
     required this.text1,
      required this.text2,
+    required this.onTap,
+    required this.index,
   });
 }

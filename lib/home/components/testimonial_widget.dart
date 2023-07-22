@@ -50,10 +50,7 @@ Widget _buildUi(double width) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-             
-            
-      
-               Text(
+              Text(
                 "TESTIMONIALS",
                 style: GoogleFonts.oswald(
                   color: Colors.white,
@@ -62,7 +59,6 @@ Widget _buildUi(double width) {
                   height: 1.3,
                 ),
               ),
-             
               SizedBox(
                 height: 45.0,
               ),

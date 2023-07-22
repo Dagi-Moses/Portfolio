@@ -4,6 +4,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
+import 'package:carousel_slider/carousel_slider.dart';
+import 'package:url_launcher/url_launcher.dart';
+
 import '../../utils/constants.dart';
 import '../../utils/screen_helper.dart';
 import '../home.dart';
@@ -20,9 +23,19 @@ class IosAppAd extends ConsumerWidget {
     );
   }
 
+
   Widget _buildUi(double width, ref) {
     final scrollToSection = ref.read(scrollToSectionProvider);
     final keys = ref.read(keysProvider);
+    List<String> imagesList = [
+  'login.jpeg',
+  'calendar.jpg',
+  'dashboard.jpg',
+  'geoflix.jpg',
+  'make_attendance.jpg',
+  
+  // Add more image paths or URLs here
+];
     return Center(
       child: LayoutBuilder(
         builder: (context, constraints) {
@@ -41,11 +54,31 @@ class IosAppAd extends ConsumerWidget {
                     flex: constraints.maxWidth > 720.0 ? 1 : 0,
                     child: SizedBox(
                       height: 350,
-                      child: Image.asset(
-                        "assets/geoflix.jpg",
-                        // Set width for image on smaller screen
-                        width: constraints.maxWidth > 720.0 ? null : 350.0,
-                      ),
+                      // child: Image.asset(
+                      //   "assets/geoflix.jpg",
+                      //   // Set width for image on smaller screen
+                      //   width: constraints.maxWidth > 720.0 ? null : 350.0,
+                      // ),
+                      child:CarouselSlider(
+      options: CarouselOptions(
+      //  height: 200, // Set the height of the carousel
+        enlargeCenterPage: true, // Increase the size of the center item
+        autoPlay: true, // Enable auto-play
+        autoPlayInterval: Duration(seconds: 3), // Set auto-play interval
+        autoPlayAnimationDuration: Duration(milliseconds: 800), // Set animation duration
+        autoPlayCurve: Curves.fastOutSlowIn, // Set animation curve
+      ),
+      items: imagesList.map((e) {
+        return Builder(
+          builder: (BuildContext context) {
+            return Image.asset(
+              width: constraints.maxWidth > 720.0 ? null : 350.0,
+              'geoflix/$e', // Replace with Image.network(imageUrl) for loading from URLs
+              fit: BoxFit.cover,
+            );
+          },
+        );
+      }).toList(),),
                     ),
                   ),
                   Expanded(
@@ -91,35 +124,7 @@ class IosAppAd extends ConsumerWidget {
                         ),
                         Row(
                           children: [
-                            // MouseRegion(
-                            //   cursor: SystemMouseCursors.click,
-                            //   child: Container(
-                            //     decoration: BoxDecoration(
-                            //       color: kPrimaryColor,
-                            //       borderRadius: BorderRadius.circular(8.0),
-                            //     ),
-                            //     height: 48.0,
-                            //     padding: EdgeInsets.symmetric(
-                            //       horizontal: 28.0,
-                            //     ),
-                            //     child: TextButton(
-                            //       onPressed: () {},
-                            //       child: Center(
-                            //         child: Text(
-                            //           "EXPLORE MORE",
-                            //           style: TextStyle(
-                            //             color: Colors.white,
-                            //             fontSize: 13.0,
-                            //             fontWeight: FontWeight.bold,
-                            //           ),
-                            //         ),
-                            //       ),
-                            //     ),
-                            //   ),
-                            // ),
-                            // SizedBox(
-                            //   width: 10.0,
-                            // ),
+                          
                             MouseRegion(
                               cursor: SystemMouseCursors.click,
                               child: Container(
@@ -132,12 +137,19 @@ class IosAppAd extends ConsumerWidget {
                                 height: 48.0,
                                 padding: EdgeInsets.symmetric(horizontal: 28.0),
                                 child: TextButton(
-                                  onPressed: () {
-                                    scrollToSection(keys[6]);
+                                  onPressed: ()async {
+                                         const url =
+                                      'https://github.com/Dagi-Moses/project'; // Replace with your URL
+
+                                  if (await canLaunchUrl(Uri.parse(url))) {
+                                    await launchUrl(Uri.parse(url));
+                                  } else {
+                                    throw 'Could not launch $url';
+                                  }
                                   },
                                   child: Center(
                                     child: Text(
-                                      "NEXT APP",
+                                      "View Code",
                                       style: TextStyle(
                                         color: kPrimaryColor,
                                         fontSize: 13.0,

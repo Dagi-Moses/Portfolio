@@ -1,11 +1,13 @@
+import 'package:carousel_slider/carousel_options.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_framework/responsive_wrapper.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../utils/constants.dart';
 import '../../utils/screen_helper.dart';
-
 
 class WebsiteAd extends StatelessWidget {
   // We can use same idea as ios_app_ad.dart and swap children order, let's copy code
@@ -21,6 +23,18 @@ class WebsiteAd extends StatelessWidget {
   }
 
   Widget _buildUi(double width) {
+    List<String> imagesList = [
+      'login.png',
+      'signup.png',
+      'dashboard.png',
+
+      'profile.png',
+      'profile2.png',
+
+      'twitterclone.png'
+
+      // Add more image paths or URLs here
+    ];
     return Center(
       child: LayoutBuilder(
         builder: (context, constraints) {
@@ -77,35 +91,6 @@ class WebsiteAd extends StatelessWidget {
                         ),
                         Row(
                           children: [
-                            // MouseRegion(
-                            //   cursor: SystemMouseCursors.click,
-                            //   child: Container(
-                            //     decoration: BoxDecoration(
-                            //       color: kPrimaryColor,
-                            //       borderRadius: BorderRadius.circular(8.0),
-                            //     ),
-                            //     height: 48.0,
-                            //     padding: EdgeInsets.symmetric(
-                            //       horizontal: 28.0,
-                            //     ),
-                            //     child: TextButton(
-                            //       onPressed: () {},
-                            //       child: Center(
-                            //         child: Text(
-                            //           "EXPLORE MORE",
-                            //           style: TextStyle(
-                            //             color: Colors.white,
-                            //             fontSize: 13.0,
-                            //             fontWeight: FontWeight.bold,
-                            //           ),
-                            //         ),
-                            //       ),
-                            //     ),
-                            //   ),
-                            // ),
-                            // SizedBox(
-                            //   width: 10.0,
-                            // ),
                             MouseRegion(
                               cursor: SystemMouseCursors.click,
                               child: Container(
@@ -118,10 +103,19 @@ class WebsiteAd extends StatelessWidget {
                                 height: 48.0,
                                 padding: EdgeInsets.symmetric(horizontal: 28.0),
                                 child: TextButton(
-                                  onPressed: () {},
+                                  onPressed: () async{
+                                     const url =
+                                      'https://github.com/Dagi-Moses/twitter-clone'; // Replace with your URL
+
+                                  if (await canLaunchUrl(Uri.parse(url))) {
+                                    await launchUrl(Uri.parse(url));
+                                  } else {
+                                    throw 'Could not launch $url';
+                                  }
+                                  },
                                   child: Center(
                                     child: Text(
-                                      "NEXT APP",
+                                      "View Code",
                                       style: TextStyle(
                                         color: kPrimaryColor,
                                         fontSize: 13.0,
@@ -147,10 +141,36 @@ class WebsiteAd extends StatelessWidget {
                     flex: constraints.maxWidth > 720.0 ? 1 : 0,
                     child: SizedBox(
                       height: 350,
-                      child: Image.asset(
-                        "assets/twitterclone.png",
-                        // Set width for image on smaller screen
-                        width: constraints.maxWidth > 720.0 ? null : 350.0,
+                      // child: Image.asset(
+                      //   "assets/twitterclone.png",
+                      //   // Set width for image on smaller screen
+                      //   width: constraints.maxWidth > 720.0 ? null : 350.0,
+                      // ),
+                      child: CarouselSlider(
+                        options: CarouselOptions(
+                          //  height: 200, // Set the height of the carousel
+                          enlargeCenterPage:
+                              true, // Increase the size of the center item
+                          autoPlay: true, // Enable auto-play
+                          autoPlayInterval:
+                              Duration(seconds: 3), // Set auto-play interval
+                          autoPlayAnimationDuration: Duration(
+                              milliseconds: 800), // Set animation duration
+                          autoPlayCurve:
+                              Curves.fastOutSlowIn, // Set animation curve
+                        ),
+                        items: imagesList.map((e) {
+                          return Builder(
+                            builder: (BuildContext context) {
+                              return Image.asset(
+                                width:
+                                    constraints.maxWidth > 720.0 ? null : 350.0,
+                                'twitter/$e', // Replace with Image.network(imageUrl) for loading from URLs
+                                fit: BoxFit.cover,
+                              );
+                            },
+                          );
+                        }).toList(),
                       ),
                     ),
                   ),

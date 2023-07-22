@@ -40,7 +40,6 @@ final List<DesignProcess> designProcesses = [
 class CvSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-   
     return Container(
       width: double.infinity,
       child: ScreenHelper(
@@ -60,78 +59,80 @@ class CvSection extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                "BETTER DESIGN,\nBETTER EXPERIENCES",
-                style: GoogleFonts.oswald(
-                  color: Colors.white,
-                  fontWeight: FontWeight.w900,
-                  height: 1.8,
-                  fontSize: 18.0,
-                ),
+          Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+            Text(
+              "BETTER DESIGN,\nBETTER EXPERIENCES",
+              style: GoogleFonts.oswald(
+                color: Colors.white,
+                fontWeight: FontWeight.w900,
+                height: 1.8,
+                fontSize: 18.0,
               ),
-              Flex(
-                
-                direction:ScreenHelper.isMobile(context)? Axis.vertical:Axis.horizontal ,
+            ),
+            Flex(
+              direction: ScreenHelper.isMobile(context)
+                  ? Axis.vertical
+                  : Axis.horizontal,
               children: [
-              
-              
-              GestureDetector(
-                onTap: () async{
-                    var bytes = await rootBundle.load("assets/mycv.pdf"); // location of your asset file
-              
-                final blob = html.Blob([bytes], 'application/pdf');
-                final url = html.Url.createObjectUrlFromBlob(blob);
-              
-                // Create an anchor element
-                final anchor = html.AnchorElement(href: url)
-                  ..setAttribute("download", "Dagi Moses Resume.pdf") // Set the filename for the downloaded file
-                  ..click(); // Simulate a click on the anchor to trigger the download
-              
-                html.Url.revokeObjectUrl(url);
-                },
-                child: MouseRegion(
-                  cursor: SystemMouseCursors.click,
-                  child: Text(
-                    "DOWNLOAD CV",
-                    style: GoogleFonts.oswald(
-                      color: kPrimaryColor,
-                      fontWeight: FontWeight.w900,
-                      fontSize: 16.0,
-                    ),
-                  ),
-                ),
-              ),
-              SizedBox(height: 10, width: 45,),
-              GestureDetector(
-                onTap: () async{
-               
-              
-               var bytes = await rootBundle.load("assets/mycv.pdf"); // location of your asset file
-              
-               final blob = html.Blob([bytes], 'application/pdf');
-               final url = html.Url.createObjectUrlFromBlob(blob);
-               html.window.open(url, "_blank");
-               html.Url.revokeObjectUrl(url);
-              
-                },
-                child: MouseRegion(
-                  cursor: SystemMouseCursors.click,
-                  child: Text(
-                    "VIEW CV",
-                    style: GoogleFonts.oswald(
-                      color: kPrimaryColor,
-                      fontWeight: FontWeight.w900,
-                      fontSize: 16.0,
-                    ),
-                  ),
-                ),
-              ),
-                        ],
+                GestureDetector(
+                  onTap: () async {
+                    var bytes = await rootBundle
+                        .load("assets/mycv.pdf"); // location of your asset file
+
+                    final blob = html.Blob([bytes], 'application/pdf');
+                    final url = html.Url.createObjectUrlFromBlob(blob);
+
+                    // Create an anchor element
+                    final anchor = html.AnchorElement(href: url)
+                      ..setAttribute("download",
+                          "Dagi Moses Resume.pdf") // Set the filename for the downloaded file
+                      ..click(); // Simulate a click on the anchor to trigger the download
+
+                    html.Url.revokeObjectUrl(url);
+                  },
+                  child: MouseRegion(
+                    cursor: SystemMouseCursors.click,
+                    child: Text(
+                      "DOWNLOAD CV",
+                      style: GoogleFonts.oswald(
+                        decoration: TextDecoration.underline,
+                        color: kPrimaryColor,
+                        fontWeight: FontWeight.w900,
+                        fontSize: 16.0,
                       ),
-            ]),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                  width: 45,
+                ),
+                GestureDetector(
+                  onTap: () async {
+                    var bytes = await rootBundle
+                        .load("assets/mycv.pdf"); // location of your asset file
+
+                    final blob = html.Blob([bytes], 'application/pdf');
+                    final url = html.Url.createObjectUrlFromBlob(blob);
+                    html.window.open(url, "_blank");
+                    html.Url.revokeObjectUrl(url);
+                  },
+                  child: MouseRegion(
+                    cursor: SystemMouseCursors.click,
+                    child: Text(
+                      "VIEW CV",
+                      style: GoogleFonts.oswald(
+                        decoration: TextDecoration.underline,
+                        color: kPrimaryColor,
+                        fontWeight: FontWeight.w900,
+                        fontSize: 16.0,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ]),
           SizedBox(
             height: 50.0,
           ),
