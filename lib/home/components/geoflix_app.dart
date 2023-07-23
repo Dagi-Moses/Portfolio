@@ -28,11 +28,11 @@ class IosAppAd extends ConsumerWidget {
     final scrollToSection = ref.read(scrollToSectionProvider);
     final keys = ref.read(keysProvider);
     List<String> imagesList = [
-  'login.jpeg',
-  'calendar.jpg',
-  'dashboard.jpg',
-  'geoflix.jpg',
-  'make_attendance.jpg',
+'assets/geoflix/calendar.jpg',
+'assets/geoflix/dashboard.jpg',
+'assets/geoflix/geoflix.jpg',
+'assets/geoflix/login.jpeg',
+'assets/geoflix/make_attendance.jpg',
   
   // Add more image paths or URLs here
 ];
@@ -49,6 +49,7 @@ class IosAppAd extends ConsumerWidget {
                     ? Axis.horizontal
                     : Axis.vertical,
                 children: [
+                  
                   // Disable expanded on smaller screen to avoid Render errors by setting flex to 0
                   Expanded(
                     flex: constraints.maxWidth > 720.0 ? 1 : 0,
@@ -61,7 +62,7 @@ class IosAppAd extends ConsumerWidget {
                       // ),
                       child:CarouselSlider(
       options: CarouselOptions(
-      //  height: 200, // Set the height of the carousel
+     // Set the height of the carousel
         enlargeCenterPage: true, // Increase the size of the center item
         autoPlay: true, // Enable auto-play
         autoPlayInterval: Duration(seconds: 3), // Set auto-play interval
@@ -71,9 +72,10 @@ class IosAppAd extends ConsumerWidget {
       items: imagesList.map((e) {
         return Builder(
           builder: (BuildContext context) {
-            return Image.asset(
+            return Image.network(
+               e,
               width: constraints.maxWidth > 720.0 ? null : 350.0,
-              'geoflix/$e', // Replace with Image.network(imageUrl) for loading from URLs
+              
               fit: BoxFit.cover,
             );
           },

@@ -54,7 +54,7 @@ List<CarouselItemModel> carouselItems = List.generate(
             child: Wrap(
               children: [
                 Text(
-                  "Need a full custom Application/Website?",
+                  "Need a full custom Application?",
                   style: TextStyle(
                     color: kCaptionColor,
                     fontSize: 15.0,

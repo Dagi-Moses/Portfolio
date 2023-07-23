@@ -36,16 +36,16 @@ List<Skill> skills = [
     percentage: 100,
   ),
   Skill(
-    skill: "Web",
+    skill: "IOS",
     percentage: 100,
   ),
   Skill(
-    skill: "IOS",
-    percentage: 90,
+    skill: "Web",
+    percentage: 80,
   ),
   Skill(
     skill: "DeskTop",
-    percentage: 90,
+    percentage: 80,
   ),
 ];
 
@@ -103,7 +103,7 @@ class SkillSection extends StatelessWidget {
                         height: 10.0,
                       ),
                       Text(
-                        "This is all the skills listed below more will be added in due time.",
+                        "This is all my current skills listed below more will be added in due time.",
                         style: TextStyle(
                           color: kCaptionColor,
                           height: 1.5,

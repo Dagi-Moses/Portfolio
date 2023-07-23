@@ -24,16 +24,12 @@ class WebsiteAd extends StatelessWidget {
 
   Widget _buildUi(double width) {
     List<String> imagesList = [
-      'login.png',
-      'signup.png',
-      'dashboard.png',
-
-      'profile.png',
-      'profile2.png',
-
-      'twitterclone.png'
-
-      // Add more image paths or URLs here
+        'assets/twitter/dashboard.png',
+        'assets/twitter/login.png',
+        'assets/twitter/profile.png',
+        'assets/twitter/profile2.png',
+        'assets/twitter/signup.png',
+        'assets/twitter/twitterclone.png',
     ];
     return Center(
       child: LayoutBuilder(
@@ -103,15 +99,15 @@ class WebsiteAd extends StatelessWidget {
                                 height: 48.0,
                                 padding: EdgeInsets.symmetric(horizontal: 28.0),
                                 child: TextButton(
-                                  onPressed: () async{
-                                     const url =
-                                      'https://github.com/Dagi-Moses/twitter-clone'; // Replace with your URL
+                                  onPressed: () async {
+                                    const url =
+                                        'https://github.com/Dagi-Moses/twitter-clone'; // Replace with your URL
 
-                                  if (await canLaunchUrl(Uri.parse(url))) {
-                                    await launchUrl(Uri.parse(url));
-                                  } else {
-                                    throw 'Could not launch $url';
-                                  }
+                                    if (await canLaunchUrl(Uri.parse(url))) {
+                                      await launchUrl(Uri.parse(url));
+                                    } else {
+                                      throw 'Could not launch $url';
+                                    }
                                   },
                                   child: Center(
                                     child: Text(
@@ -139,10 +135,10 @@ class WebsiteAd extends StatelessWidget {
                   ),
                   Expanded(
                     flex: constraints.maxWidth > 720.0 ? 1 : 0,
-                    child: SizedBox(
+                     child: SizedBox(
                       height: 350,
-                      // child: Image.asset(
-                      //   "assets/twitterclone.png",
+                      // child: Image.network(
+                      //    'https://firebasestorage.googleapis.com/v0/b/dagi-moses.appspot.com/o/twitter%2Fdashboard.png?alt=media&token=d0f37cbc-3aff-4a62-b7ec-bbfcd324da4b',
                       //   // Set width for image on smaller screen
                       //   width: constraints.maxWidth > 720.0 ? null : 350.0,
                       // ),
@@ -162,10 +158,10 @@ class WebsiteAd extends StatelessWidget {
                         items: imagesList.map((e) {
                           return Builder(
                             builder: (BuildContext context) {
-                              return Image.asset(
+                              return Image.network(
                                 width:
                                     constraints.maxWidth > 720.0 ? null : 350.0,
-                                'twitter/$e', // Replace with Image.network(imageUrl) for loading from URLs
+                                e, // Replace with Image.network(imageUrl) for loading from URLs
                                 fit: BoxFit.cover,
                               );
                             },

@@ -44,9 +44,9 @@ final scrollToSectionProvider =
     final RenderBox renderBox =
         key.currentContext!.findRenderObject() as RenderBox;
     final offset = renderBox.localToGlobal(Offset.zero).dy;
-     _scrollController.jumpTo(offset,
-       );
-       ;
+    _scrollController.animateTo(offset,
+        duration: Duration(milliseconds: 600), curve: Curves.easeIn);
+    ;
   };
 });
 
@@ -57,58 +57,57 @@ class Home extends ConsumerStatefulWidget {
 
 class _HomeState extends ConsumerState<Home> {
   @override
-  Widget build(BuildContext context) {
-    final _scrollController = ref.read(scrollControllerProvider);
-     @override
   void initState() {
     super.initState();
-
     final scrollToSection = ref.read(scrollToSectionProvider);
     final keys = ref.read(keysProvider);
-   setState(() {
-    headerItems = [
-      HeaderItem(
-          title: "MY INTRO",
+    setState(() {
+      headerItems = [
+        HeaderItem(
+            title: "MY INTRO",
+            onTap: () {
+              scrollToSection(keys[1]);
+            }),
+        HeaderItem(
+            title: "SERVICES",
+            onTap: () {
+              scrollToSection(keys[2]);
+            }),
+        HeaderItem(
+            title: "PORTFOLIO",
+            onTap: () {
+              scrollToSection(keys[3]);
+            }),
+        HeaderItem(
+          title: "EDUCATION",
           onTap: () {
-            scrollToSection(keys[1]);
-          }),
-      HeaderItem(
-          title: "SERVICES",
+            scrollToSection(keys[6]);
+          },
+        ),
+        HeaderItem(
+            title: "SKILLS",
+            onTap: () {
+              scrollToSection(keys[7]);
+            }),
+        HeaderItem(
+            title: "TESTIMONIALS",
+            onTap: () {
+              scrollToSection(keys[8]);
+            }),
+        HeaderItem(
+          title: "HIRE ME",
           onTap: () {
-            scrollToSection(keys[2]);
-          }),
-      HeaderItem(
-          title: "PORTFOLIO",
-          onTap: () {
-            scrollToSection(keys[3]);
-          }),
-      HeaderItem(
-        title: "EDUCATION",
-        onTap: () {
-          scrollToSection(keys[6]);
-        },
-      ),
-      HeaderItem(title: "SKILLS", onTap: () {
-        scrollToSection(keys[7]);
-      }),
-      HeaderItem(title: "TESTIMONIALS", onTap: () {
-        scrollToSection(keys[8]);
-      }),
-      HeaderItem(
-        title: "HIRE ME",
-        onTap: () {
-          scrollToSection(keys[9]);
-        },
-        isButton: true,
-      ),
-    ];
- 
-      
+            scrollToSection(keys[9]);
+          },
+          isButton: true,
+        ),
+      ];
     });
   }
 
-   // final keys = ref.watch(keysProvider);
-
+  @override
+  Widget build(BuildContext context) {
+    final _scrollController = ref.read(scrollControllerProvider);
     return Scaffold(
       key: Globals.scaffoldKey,
       endDrawer: Drawer(
@@ -189,7 +188,6 @@ class _HomeState extends ConsumerState<Home> {
                 child: Text(
                   "Please Ask For More Projects",
                   style: GoogleFonts.oswald(
-                   
                     color: Colors.white,
                     fontWeight: FontWeight.w900,
                     fontSize: 30.0,
@@ -224,7 +222,7 @@ class _HomeState extends ConsumerState<Home> {
                               text: "click here to view my Git Hub Repository,",
                               style: TextStyle(
                                 decoration: TextDecoration.underline,
-                                decorationColor: kPrimaryColor, 
+                                decorationColor: kPrimaryColor,
                                 color: kPrimaryColor,
                                 fontWeight: FontWeight.w700,
                                 height: 1.8,
@@ -234,7 +232,9 @@ class _HomeState extends ConsumerState<Home> {
                     ),
                     Text(
                       "This is the portfolio section. There is alot of work here",
-                      style: TextStyle(color: Colors.white, height: 1.8,
+                      style: TextStyle(
+                        color: Colors.white,
+                        height: 1.8,
                       ),
                     ),
                   ],
@@ -251,7 +251,7 @@ class _HomeState extends ConsumerState<Home> {
               Container(
                   key: ref.read(keysProvider)[6], child: EducationSection()),
               SizedBox(
-                height:ScreenHelper.isMobile(context)? 0: 50.0,
+                height: ScreenHelper.isMobile(context) ? 0 : 50.0,
               ),
               Container(key: ref.read(keysProvider)[7], child: SkillSection()),
               SizedBox(
