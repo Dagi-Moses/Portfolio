@@ -23,19 +23,18 @@ class IosAppAd extends ConsumerWidget {
     );
   }
 
-
   Widget _buildUi(double width, ref) {
     final scrollToSection = ref.read(scrollToSectionProvider);
     final keys = ref.read(keysProvider);
     List<String> imagesList = [
-'assets/geoflix/calendar.jpg',
-'assets/geoflix/dashboard.jpg',
-'assets/geoflix/geoflix.jpg',
-'assets/geoflix/login.jpeg',
-'assets/geoflix/make_attendance.jpg',
-  
-  // Add more image paths or URLs here
-];
+      'assets/geoflix/calendar.jpg',
+      'assets/geoflix/dashboard.jpg',
+      'assets/geoflix/geoflix.jpg',
+      'assets/geoflix/login.jpeg',
+      'assets/geoflix/make_attendance.jpg',
+
+      // Add more image paths or URLs here
+    ];
     return Center(
       child: LayoutBuilder(
         builder: (context, constraints) {
@@ -49,38 +48,36 @@ class IosAppAd extends ConsumerWidget {
                     ? Axis.horizontal
                     : Axis.vertical,
                 children: [
-                  
                   // Disable expanded on smaller screen to avoid Render errors by setting flex to 0
                   Expanded(
                     flex: constraints.maxWidth > 720.0 ? 1 : 0,
                     child: SizedBox(
                       height: 350,
-                      // child: Image.asset(
-                      //   "assets/geoflix.jpg",
-                      //   // Set width for image on smaller screen
-                      //   width: constraints.maxWidth > 720.0 ? null : 350.0,
-                      // ),
-                      child:CarouselSlider(
-      options: CarouselOptions(
-     // Set the height of the carousel
-        enlargeCenterPage: true, // Increase the size of the center item
-        autoPlay: true, // Enable auto-play
-        autoPlayInterval: Duration(seconds: 3), // Set auto-play interval
-        autoPlayAnimationDuration: Duration(milliseconds: 800), // Set animation duration
-        autoPlayCurve: Curves.fastOutSlowIn, // Set animation curve
-      ),
-      items: imagesList.map((e) {
-        return Builder(
-          builder: (BuildContext context) {
-            return Image.network(
-               e,
-              width: constraints.maxWidth > 720.0 ? null : 350.0,
-              
-              fit: BoxFit.cover,
-            );
-          },
-        );
-      }).toList(),),
+                      child: Image.asset(
+                        'assets/make_attendance.jpg',
+                        width: constraints.maxWidth > 720.0 ? null : 350.0,
+                      ),
+                      //                   child:CarouselSlider(
+                      //   options: CarouselOptions(
+                      //  // Set the height of the carousel
+                      //     enlargeCenterPage: true, // Increase the size of the center item
+                      //     autoPlay: true, // Enable auto-play
+                      //     autoPlayInterval: Duration(seconds: 3), // Set auto-play interval
+                      //     autoPlayAnimationDuration: Duration(milliseconds: 800), // Set animation duration
+                      //     autoPlayCurve: Curves.fastOutSlowIn, // Set animation curve
+                      //   ),
+                      //   items: imagesList.map((e) {
+                      //     return Builder(
+                      //       builder: (BuildContext context) {
+                      //         return Image.network(
+                      //            e,
+                      //           width: constraints.maxWidth > 720.0 ? null : 350.0,
+
+                      //           fit: BoxFit.cover,
+                      //         );
+                      //       },
+                      //     );
+                      //   }).toList(),),
                     ),
                   ),
                   Expanded(
@@ -89,7 +86,9 @@ class IosAppAd extends ConsumerWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        SizedBox(height: 15,),
+                        SizedBox(
+                          height: 15,
+                        ),
                         Text(
                           "Mobile Application",
                           style: GoogleFonts.oswald(
@@ -126,7 +125,6 @@ class IosAppAd extends ConsumerWidget {
                         ),
                         Row(
                           children: [
-                          
                             MouseRegion(
                               cursor: SystemMouseCursors.click,
                               child: Container(
@@ -139,15 +137,15 @@ class IosAppAd extends ConsumerWidget {
                                 height: 48.0,
                                 padding: EdgeInsets.symmetric(horizontal: 28.0),
                                 child: TextButton(
-                                  onPressed: ()async {
-                                         const url =
-                                      'https://github.com/Dagi-Moses/project'; // Replace with your URL
+                                  onPressed: () async {
+                                    const url =
+                                        'https://github.com/Dagi-Moses/project'; // Replace with your URL
 
-                                  if (await canLaunchUrl(Uri.parse(url))) {
-                                    await launchUrl(Uri.parse(url));
-                                  } else {
-                                    throw 'Could not launch $url';
-                                  }
+                                    if (await canLaunchUrl(Uri.parse(url))) {
+                                      await launchUrl(Uri.parse(url));
+                                    } else {
+                                      throw 'Could not launch $url';
+                                    }
                                   },
                                   child: Center(
                                     child: Text(

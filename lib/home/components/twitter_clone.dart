@@ -137,37 +137,36 @@ class WebsiteAd extends StatelessWidget {
                     flex: constraints.maxWidth > 720.0 ? 1 : 0,
                      child: SizedBox(
                       height: 350,
-                      // child: Image.network(
-                      //    'https://firebasestorage.googleapis.com/v0/b/dagi-moses.appspot.com/o/twitter%2Fdashboard.png?alt=media&token=d0f37cbc-3aff-4a62-b7ec-bbfcd324da4b',
-                      //   // Set width for image on smaller screen
-                      //   width: constraints.maxWidth > 720.0 ? null : 350.0,
-                      // ),
-                      child: CarouselSlider(
-                        options: CarouselOptions(
-                          //  height: 200, // Set the height of the carousel
-                          enlargeCenterPage:
-                              true, // Increase the size of the center item
-                          autoPlay: true, // Enable auto-play
-                          autoPlayInterval:
-                              Duration(seconds: 3), // Set auto-play interval
-                          autoPlayAnimationDuration: Duration(
-                              milliseconds: 800), // Set animation duration
-                          autoPlayCurve:
-                              Curves.fastOutSlowIn, // Set animation curve
-                        ),
-                        items: imagesList.map((e) {
-                          return Builder(
-                            builder: (BuildContext context) {
-                              return Image.network(
-                                width:
-                                    constraints.maxWidth > 720.0 ? null : 350.0,
-                                e, // Replace with Image.network(imageUrl) for loading from URLs
-                                fit: BoxFit.cover,
-                              );
-                            },
-                          );
-                        }).toList(),
+                      child: Image.asset(
+                        'assets/twitterclone.png',
+                        width: constraints.maxWidth > 720.0 ? null : 350.0,
                       ),
+                      // child: CarouselSlider(
+                      //   options: CarouselOptions(
+                      //     //  height: 200, // Set the height of the carousel
+                      //     enlargeCenterPage:
+                      //         true, // Increase the size of the center item
+                      //     autoPlay: true, // Enable auto-play
+                      //     autoPlayInterval:
+                      //         Duration(seconds: 3), // Set auto-play interval
+                      //     autoPlayAnimationDuration: Duration(
+                      //         milliseconds: 800), // Set animation duration
+                      //     autoPlayCurve:
+                      //         Curves.fastOutSlowIn, // Set animation curve
+                      //   ),
+                      //   items: imagesList.map((e) {
+                      //     return Builder(
+                      //       builder: (BuildContext context) {
+                      //         return Image.network(
+                      //           width:
+                      //               constraints.maxWidth > 720.0 ? null : 350.0,
+                      //           e, // Replace with Image.network(imageUrl) for loading from URLs
+                      //           fit: BoxFit.cover,
+                      //         );
+                      //       },
+                      //     );
+                      //   }).toList(),
+                      // ),
                     ),
                   ),
                 ],

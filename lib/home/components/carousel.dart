@@ -6,7 +6,6 @@ import '../../utils/constants.dart';
 import '../../utils/screen_helper.dart';
 import 'carousel_items.dart';
 
-
 class Carousel extends StatelessWidget {
   final CarouselController carouselController = CarouselController();
   @override

@@ -36,14 +36,14 @@ final keysProvider = Provider<List<GlobalKey>>((ref) => [
       GlobalKey(),
       // Add more keys for other widgets
     ]);
-
+Size ?screenSize;
 final scrollToSectionProvider =
     StateProvider<Future<void> Function(GlobalKey)>((ref) {
   final _scrollController = ref.read(scrollControllerProvider);
   return (GlobalKey key) async {
     final RenderBox renderBox =
         key.currentContext!.findRenderObject() as RenderBox;
-    final offset = renderBox.localToGlobal(Offset.zero).dy;
+    final offset = screenSize!.width < 400 ? renderBox.localToGlobal(Offset.zero).dy +100:renderBox.localToGlobal(Offset.zero).dy;
     _scrollController.animateTo(offset,
         duration: Duration(milliseconds: 600), curve: Curves.easeIn);
     ;
@@ -107,6 +107,7 @@ class _HomeState extends ConsumerState<Home> {
 
   @override
   Widget build(BuildContext context) {
+    screenSize = MediaQuery.of(context).size;
     final _scrollController = ref.read(scrollControllerProvider);
     return Scaffold(
       key: Globals.scaffoldKey,
