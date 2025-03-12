@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -12,8 +11,8 @@ List<FooterItem> footerItems = [
   FooterItem(
       iconPath: "assets/mappin.png",
       title: "ADDRESS",
-      text1: "no 9b, road 22, Woji",
-      text2: "Port harcourt, Rivers State",
+      text1: "Akoka, Lagos",
+      text2: "",
       onTap: () {},
       index: 0),
   FooterItem(
@@ -119,13 +118,13 @@ Widget _buildUi(double width, BuildContext context) {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding: EdgeInsets.symmetric(vertical: 50.0),
+                padding: const EdgeInsets.symmetric(vertical: 50.0),
                 child: Wrap(
                   spacing: 20.0,
                   runSpacing: 20.0,
                   children: footerItems
                       .map(
-                        (footerItem) => Container(
+                        (footerItem) => SizedBox(
                           height: 125.0,
                           width: ScreenHelper.isMobile(context)
                               ? constraints.maxWidth / 2.0 - 20.0
@@ -142,7 +141,7 @@ Widget _buildUi(double width, BuildContext context) {
                                       width: 25.0,
                                       color: kCaptionColor,
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                       width: 15.0,
                                     ),
                                     Text(
@@ -155,7 +154,7 @@ Widget _buildUi(double width, BuildContext context) {
                                     ),
                                   ],
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 15.0,
                                 ),
                                 GestureDetector(
@@ -172,13 +171,13 @@ Widget _buildUi(double width, BuildContext context) {
                                       children: [
                                         TextSpan(
                                           text: "${footerItem.text1}\n",
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             height: 1.8,
                                           ),
                                         ),
                                         TextSpan(
                                           text: "${footerItem.text2}\n",
-                                          style: TextStyle(),
+                                          style: const TextStyle(),
                                         )
                                       ],
                                     ),
@@ -192,7 +191,7 @@ Widget _buildUi(double width, BuildContext context) {
                       .toList(),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 15.0,
               ),
               Flex(
@@ -203,7 +202,7 @@ Widget _buildUi(double width, BuildContext context) {
                     ? MainAxisAlignment.center
                     : MainAxisAlignment.spaceBetween,
                 children: [
-                  Padding(
+                  const Padding(
                     padding: EdgeInsets.only(bottom: 8.0),
                     child: Text(
                       "Copyright (c) 2023 Dagi Moses. All rights Reserved",
@@ -217,7 +216,7 @@ Widget _buildUi(double width, BuildContext context) {
                     children: [
                       GestureDetector(
                         onTap: () {},
-                        child: MouseRegion(
+                        child: const MouseRegion(
                           cursor: SystemMouseCursors.click,
                           child: Text(
                             "Privacy Policy",
@@ -228,8 +227,8 @@ Widget _buildUi(double width, BuildContext context) {
                         ),
                       ),
                       Container(
-                        padding: EdgeInsets.symmetric(horizontal: 8.0),
-                        child: Text(
+                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                        child: const Text(
                           "|",
                           style: TextStyle(
                             color: kCaptionColor,
@@ -238,7 +237,7 @@ Widget _buildUi(double width, BuildContext context) {
                       ),
                       GestureDetector(
                         onTap: () {},
-                        child: MouseRegion(
+                        child: const MouseRegion(
                           cursor: SystemMouseCursors.click,
                           child: Text(
                             "Terms & Conditions",

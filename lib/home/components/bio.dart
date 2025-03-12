@@ -1,15 +1,17 @@
-
 import 'package:flutter/material.dart';
 
+import 'package:provider/provider.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:responsive_framework/responsive_wrapper.dart';
+import 'package:responsive_framework/responsive_framework.dart';
+
+
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../utils/constants.dart';
 import '../../utils/screen_helper.dart';
+import '../home.dart';
 
-class WebsiteAd extends StatelessWidget {
-  // We can use same idea as ios_app_ad.dart and swap children order, let's copy code
+class Bio extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -22,7 +24,8 @@ class WebsiteAd extends StatelessWidget {
   }
 
   Widget _buildUi(double width) {
- 
+   
+   
     return Center(
       child: LayoutBuilder(
         builder: (context, constraints) {
@@ -31,7 +34,7 @@ class WebsiteAd extends StatelessWidget {
             minWidth: width,
             defaultScale: false,
             child: Container(
-               margin: EdgeInsets.only(top:  constraints.maxWidth > 720.0 ? 100 : 0,),
+               margin: EdgeInsets.only(top:  constraints.maxWidth > 720.0 ? 60 : 0,),
               child: Flex(
                 direction: constraints.maxWidth > 720
                     ? Axis.horizontal
@@ -40,12 +43,26 @@ class WebsiteAd extends StatelessWidget {
                   // Disable expanded on smaller screen to avoid Render errors by setting flex to 0
                   Expanded(
                     flex: constraints.maxWidth > 720.0 ? 1 : 0,
+                    child: SizedBox(
+                      height: 350,
+                      child: Image.asset(
+                        'assets/bio.png',
+                        width: constraints.maxWidth > 720.0 ? null : 350.0,
+              
+                    ),
+                  ),
+                  ),
+                  Expanded(
+                    flex: constraints.maxWidth > 720.0 ? 1 : 0,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        SizedBox(
+                          height: 15,
+                        ),
                         Text(
-                          "MOBILE APPLICATION",
+                          "Mobile Application",
                           style: GoogleFonts.oswald(
                             color: kPrimaryColor,
                             fontWeight: FontWeight.w900,
@@ -56,7 +73,7 @@ class WebsiteAd extends StatelessWidget {
                           height: 15.0,
                         ),
                         Text(
-                          "TWITTER CLONE\n",
+                          "BIO",
                           style: GoogleFonts.oswald(
                             color: Colors.white,
                             fontWeight: FontWeight.w900,
@@ -64,11 +81,11 @@ class WebsiteAd extends StatelessWidget {
                             fontSize: 35.0,
                           ),
                         ),
-                        // SizedBox(
-                        //   height: 10.0,
-                        // ),
+                        SizedBox(
+                          height: 10.0,
+                        ),
                         Text(
-                          "Twitter clone is a full stack fully functional imitiation of the popular Twitter application. It was done as a personal project and includes features like: posting, liking and commenting tweets, one to one chatting, searching for users and tweet, 'follow' notification, profile update etc.",
+                          "Bio is a health blog application that allows users to view health tips by a dedicated health professional and drop reviews/comments on them, it also include a heart disease prediction feature",
                           style: TextStyle(
                             color: kCaptionColor,
                             height: 1.5,
@@ -94,7 +111,7 @@ class WebsiteAd extends StatelessWidget {
                                 child: TextButton(
                                   onPressed: () async {
                                     const url =
-                                        'https://github.com/Dagi-Moses/twitter-clone'; // Replace with your URL
+                                        'https://github.com/Dagi-Moses/bio'; // Replace with your URL
 
                                     if (await canLaunchUrl(Uri.parse(url))) {
                                       await launchUrl(Uri.parse(url));
@@ -116,27 +133,10 @@ class WebsiteAd extends StatelessWidget {
                               ),
                             )
                           ],
-                        ),
-                        SizedBox(
-                          height: 70.0,
                         )
                       ],
                     ),
-                  ),
-                  SizedBox(
-                    width: 25.0,
-                  ),
-                  Expanded(
-                    flex: constraints.maxWidth > 720.0 ? 1 : 0,
-                     child: SizedBox(
-                      height: 350,
-                      child: Image.asset(
-                        'assets/twitter.png',
-                        width: constraints.maxWidth > 720.0 ? null : 350.0,
-                      ),
-                     
-                    ),
-                  ),
+                  )
                 ],
               ),
             ),

@@ -11,42 +11,41 @@ List<Skill> skills = [
     skill: "Flutter",
     percentage: 100,
   ),
+   Skill(
+    skill: "React",
+    percentage: 100,
+  ),
   Skill(
     skill: "Firebase",
     percentage: 90,
   ),
   Skill(
-    skill: "Node Js",
-    percentage: 80,
+    skill: "Mongo DB",
+    percentage: 90,
   ),
   Skill(
-    skill: "Mongo DB",
+    skill: "Node Js",
+    percentage: 90,
+  ),
+  Skill(
+    skill: "Express",
+    percentage: 90,
+  ),
+ 
+  
+  Skill(
+    skill: "Java",
+    percentage: 40,
+  ),
+  Skill(
+    skill: "Networking",
     percentage: 70,
   ),
   Skill(
-    skill: "XML",
-    percentage: 50,
+    skill: "Microsoft Office Suites",
+    percentage: 70,
   ),
-  Skill(
-    skill: "Java",
-    percentage: 20,
-  ),
-  Skill(
-    skill: "Android",
-    percentage: 100,
-  ),
-  Skill(
-    skill: "IOS",
-    percentage: 100,
-  ),
-  Skill(
-    skill: "Web",
-    percentage: 80,
-  ),
-  Skill(
-    skill: "DeskTop",
-    percentage: 80,
-  ),
+  
 ];
 
 class SkillSection extends StatelessWidget {
@@ -103,7 +102,7 @@ class SkillSection extends StatelessWidget {
                         height: 10.0,
                       ),
                       Text(
-                        "This is all my current skills listed below more will be added in due time.",
+                        "This is all my current skills listed below, more will be added in due time.",
                         style: TextStyle(
                           color: kCaptionColor,
                           height: 1.5,

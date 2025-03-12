@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_framework/responsive_framework.dart';
@@ -40,7 +39,7 @@ final List<DesignProcess> designProcesses = [
 class CvSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: double.infinity,
       child: ScreenHelper(
         desktop: _buildUi(context, kDesktopMaxWidth),
@@ -60,20 +59,67 @@ class CvSection extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-            Text(
-              "BETTER DESIGN,\nBETTER EXPERIENCES",
-              style: GoogleFonts.oswald(
-                color: Colors.white,
-                fontWeight: FontWeight.w900,
-                height: 1.8,
-                fontSize: 18.0,
-              ),
-            ),
             Flex(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              direction: ScreenHelper.isMobile(context)
+                  ? Axis.vertical
+                  : Axis.horizontal,
+                  children: [
+                Text(
+                  "BETTER DESIGN,",
+                  style: GoogleFonts.oswald(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w900,
+                    height: 1.8,
+                    fontSize: 18.0,
+                  ),
+                ),
+                Text(
+                  " BETTER EXPERIENCES",
+                  style: GoogleFonts.oswald(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w900,
+                    height: 1.8,
+                    fontSize: 18.0,
+                  ),
+                ),
+                  ],
+            ),
+          
+            Flex(
+               crossAxisAlignment: CrossAxisAlignment.start,
               direction: ScreenHelper.isMobile(context)
                   ? Axis.vertical
                   : Axis.horizontal,
               children: [
+                GestureDetector(
+                  onTap: () async {
+                    var bytes = await rootBundle
+                        .load("assets/mycv.pdf"); // location of your asset file
+
+                    final blob = html.Blob([bytes], 'application/pdf');
+                    final url = html.Url.createObjectUrlFromBlob(blob);
+                    html.window.open(url, "_blank");
+                    html.Url.revokeObjectUrl(url);
+                  },
+                  child: MouseRegion(
+                    cursor: SystemMouseCursors.click,
+                    child: Text(
+                      "VIEW CV",
+                      style: GoogleFonts.oswald(
+                        decoration: TextDecoration.underline,
+                        color: kPrimaryColor,
+                        fontWeight: FontWeight.w900,
+                        fontSize: 16.0,
+                      ),
+                    ),
+                  ),
+                ),
+
+                    const SizedBox(
+                  height: 10,
+                  width: 45,
+                ),
                 GestureDetector(
                   onTap: () async {
                     var bytes = await rootBundle
@@ -103,103 +149,74 @@ class CvSection extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(
-                  height: 10,
-                  width: 45,
-                ),
-                GestureDetector(
-                  onTap: () async {
-                    var bytes = await rootBundle
-                        .load("assets/mycv.pdf"); // location of your asset file
-
-                    final blob = html.Blob([bytes], 'application/pdf');
-                    final url = html.Url.createObjectUrlFromBlob(blob);
-                    html.window.open(url, "_blank");
-                    html.Url.revokeObjectUrl(url);
-                  },
-                  child: MouseRegion(
-                    cursor: SystemMouseCursors.click,
-                    child: Text(
-                      "VIEW CV",
-                      style: GoogleFonts.oswald(
-                        decoration: TextDecoration.underline,
-                        color: kPrimaryColor,
-                        fontWeight: FontWeight.w900,
-                        fontSize: 16.0,
-                      ),
-                    ),
-                  ),
-                ),
+               
               ],
             ),
           ]),
-          SizedBox(
+          const SizedBox(
             height: 50.0,
           ),
-          Container(
-            child: LayoutBuilder(
-              builder: (_context, constraints) {
-                return ResponsiveGridView.builder(
-                  padding: EdgeInsets.all(0.0),
-                  shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
-                  alignment: Alignment.topCenter,
-                  gridDelegate: ResponsiveGridDelegate(
-                    mainAxisSpacing: 20.0,
-                    crossAxisSpacing: 20.0,
-                    maxCrossAxisExtent: ScreenHelper.isTablet(context) ||
-                            ScreenHelper.isMobile(context)
-                        ? constraints.maxWidth / 2.0
-                        : 250.0,
-                    // Hack to adjust child height
-                    childAspectRatio: ScreenHelper.isDesktop(context)
-                        ? 1
-                        : MediaQuery.of(context).size.aspectRatio * 1.5,
-                  ),
-                  itemBuilder: (BuildContext context, int index) {
-                    return Container(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+          LayoutBuilder(
+            builder: (_context, constraints) {
+              return ResponsiveGridView.builder(
+                padding: const EdgeInsets.all(0.0),
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                alignment: Alignment.topCenter,
+                gridDelegate: ResponsiveGridDelegate(
+                  
+                  mainAxisSpacing: 20.0,
+                  crossAxisSpacing: 20.0,
+                  maxCrossAxisExtent: ScreenHelper.isTablet(context) ||
+                          ScreenHelper.isMobile(context)
+                      ? constraints.maxWidth / 2.0
+                      : 320.0,
+                  // Hack to adjust child height
+                  childAspectRatio: ScreenHelper.isDesktop(context)
+                      ? 1
+                      : MediaQuery.of(context).size.aspectRatio * 1.5,
+                ),
+                itemBuilder: (BuildContext context, int index) {
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Image.asset(
-                                designProcesses[index].imagePath,
-                                width: 40.0,
-                              ),
-                              SizedBox(
-                                width: 15.0,
-                              ),
-                              Text(
-                                designProcesses[index].title,
-                                style: GoogleFonts.oswald(
-                                  fontSize: 20.0,
-                                  fontWeight: FontWeight.w700,
-                                  color: Colors.white,
-                                ),
-                              )
-                            ],
+                          Image.asset(
+                            designProcesses[index].imagePath,
+                            width: 40.0,
                           ),
-                          SizedBox(
-                            height: 15.0,
+                          const SizedBox(
+                            width: 15.0,
                           ),
                           Text(
-                            designProcesses[index].subtitle,
-                            style: TextStyle(
-                              color: kCaptionColor,
-                              height: 1.5,
-                              fontSize: 14.0,
+                            designProcesses[index].title,
+                            style: GoogleFonts.oswald(
+                              fontSize: 20.0,
+                              fontWeight: FontWeight.w700,
+                              color: Colors.white,
                             ),
                           )
                         ],
                       ),
-                    );
-                  },
-                  itemCount: designProcesses.length,
-                );
-              },
-            ),
+                      const SizedBox(
+                        height: 15.0,
+                      ),
+                      Text(
+                        designProcesses[index].subtitle,
+                        style: const TextStyle(
+                          color: kCaptionColor,
+                          height: 1.5,
+                          fontSize: 14.0,
+                        ),
+                      )
+                    ],
+                  );
+                },
+                itemCount: designProcesses.length,
+              );
+            },
           )
         ],
       ),

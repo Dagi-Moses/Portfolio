@@ -1,10 +1,10 @@
-import 'package:flutter/gestures.dart';
+import 'package:Dagi_Moses_Portfolio/models/projects.dart';
+import 'package:Dagi_Moses_Portfolio/providers/scrollProvider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
-//import 'package:flutter_scroll_to/flutter_scroll_to.dart';
 import '../models/header_item.dart';
 import '../utils/constants.dart';
 import '../utils/globals.dart';
@@ -18,103 +18,98 @@ import 'components/geoflix_app.dart';
 import 'components/portfolio_stats.dart';
 import 'components/skill_section.dart';
 import 'components/testimonial_widget.dart';
-import 'components/twitter_clone.dart';
+import 'package:provider/provider.dart';
 
-final scrollControllerProvider =
-    StateProvider<ScrollController>((ref) => ScrollController());
-
-final keysProvider = Provider<List<GlobalKey>>((ref) => [
-      GlobalKey(),
-      GlobalKey(),
-      GlobalKey(),
-      GlobalKey(),
-      GlobalKey(),
-      GlobalKey(),
-      GlobalKey(),
-      GlobalKey(),
-      GlobalKey(),
-      GlobalKey(),
-      // Add more keys for other widgets
-    ]);
-Size ?screenSize;
-final scrollToSectionProvider =
-    StateProvider<Future<void> Function(GlobalKey)>((ref) {
-  final _scrollController = ref.read(scrollControllerProvider);
-  return (GlobalKey key) async {
-    final RenderBox renderBox =
-        key.currentContext!.findRenderObject() as RenderBox;
-    final offset = screenSize!.width < 400 ? renderBox.localToGlobal(Offset.zero).dy +100:renderBox.localToGlobal(Offset.zero).dy;
-    _scrollController.animateTo(offset,
-        duration: Duration(milliseconds: 600), curve: Curves.easeIn);
-    ;
-  };
-});
-
-class Home extends ConsumerStatefulWidget {
+class Home extends StatefulWidget {
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _HomeState();
+  State<StatefulWidget> createState() => _HomeState();
 }
 
-class _HomeState extends ConsumerState<Home> {
+class _HomeState extends State<Home> {
+  late bool isMobile;
+
   @override
   void initState() {
     super.initState();
-    final scrollToSection = ref.read(scrollToSectionProvider);
-    final keys = ref.read(keysProvider);
-    setState(() {
-      headerItems = [
-        HeaderItem(
-            title: "MY INTRO",
-            onTap: () {
-              scrollToSection(keys[1]);
-            }),
-        HeaderItem(
-            title: "SERVICES",
-            onTap: () {
-              scrollToSection(keys[2]);
-            }),
-        HeaderItem(
-            title: "PORTFOLIO",
-            onTap: () {
-              scrollToSection(keys[3]);
-            }),
-        HeaderItem(
-          title: "EDUCATION",
-          onTap: () {
-            scrollToSection(keys[6]);
-          },
-        ),
-        HeaderItem(
-            title: "SKILLS",
-            onTap: () {
-              scrollToSection(keys[7]);
-            }),
-        HeaderItem(
-            title: "TESTIMONIALS",
-            onTap: () {
-              scrollToSection(keys[8]);
-            }),
-        HeaderItem(
-          title: "HIRE ME",
-          onTap: () {
-            scrollToSection(keys[9]);
-          },
-          isButton: true,
-        ),
-      ];
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final scrollToSection =
+          Provider.of<ScrollControllerProvider>(context, listen: false);
+      final keys = scrollToSection.keys;
+
+      setState(() {
+        headerItems = [
+          HeaderItem(
+              title: "MY INTRO",
+              onTap: () {
+                if (isMobile) {
+                  Navigator.pop(context);
+                }
+                scrollToSection.scrollToSection(keys[1]);
+              }),
+          HeaderItem(
+              title: "SERVICES",
+              onTap: () {
+                if (isMobile) {
+                  Navigator.pop(context);
+                }
+                scrollToSection.scrollToSection(keys[2]);
+              }),
+          HeaderItem(
+              title: "PORTFOLIO",
+              onTap: () {
+                if (isMobile) {
+                  Navigator.pop(context);
+                }
+                scrollToSection.scrollToSection(keys[3]);
+              }),
+          HeaderItem(
+              title: "EDUCATION",
+              onTap: () {
+                if (isMobile) {
+                  Navigator.pop(context);
+                }
+                scrollToSection.scrollToSection(keys[4]);
+              }),
+          HeaderItem(
+              title: "SKILLS",
+              onTap: () {
+                if (isMobile) {
+                  Navigator.pop(context);
+                }
+                scrollToSection.scrollToSection(keys[5]);
+              }),
+          HeaderItem(
+              title: "TESTIMONIALS",
+              onTap: () {
+                if (isMobile) {
+                  Navigator.pop(context);
+                }
+                scrollToSection.scrollToSection(keys[6]);
+              }),
+          HeaderItem(
+            title: "HIRE ME",
+            onTap: () async {
+              scrollToSection.scrollToSection(keys[7]);
+            },
+            isButton: true,
+          ),
+        ];
+      });
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    screenSize = MediaQuery.of(context).size;
-    final _scrollController = ref.read(scrollControllerProvider);
+    final screenSize = MediaQuery.of(context).size;
+    isMobile = screenSize.width < 720;
+    final scrollProvider = Provider.of<ScrollControllerProvider>(context);
     return Scaffold(
       key: Globals.scaffoldKey,
       endDrawer: Drawer(
+        width: screenSize.width / 2.2,
         child: SafeArea(
           child: Padding(
-            padding: EdgeInsets.symmetric(
+            padding: const EdgeInsets.symmetric(
               horizontal: 16.0,
               vertical: 24.0,
             ),
@@ -128,12 +123,12 @@ class _HomeState extends ConsumerState<Home> {
                             color: kDangerColor,
                             borderRadius: BorderRadius.circular(8.0),
                           ),
-                          padding: EdgeInsets.symmetric(horizontal: 28.0),
+                          padding: const EdgeInsets.symmetric(horizontal: 28.0),
                           child: TextButton(
                             onPressed: headerItems![index].onTap,
                             child: Text(
                               headerItems![index].title,
-                              style: TextStyle(
+                              style: const TextStyle(
                                 color: Colors.white,
                                 fontSize: 13.0,
                                 fontWeight: FontWeight.bold,
@@ -146,14 +141,16 @@ class _HomeState extends ConsumerState<Home> {
                         onTap: headerItems![index].onTap,
                         title: Text(
                           headerItems![index].title,
-                          style: TextStyle(
-                            color: Colors.white,
+                          style: const TextStyle(
+                            fontSize: 13.0,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
                           ),
                         ),
                       );
               },
               separatorBuilder: (BuildContext context, int index) {
-                return SizedBox(
+                return const SizedBox(
                   height: 10.0,
                 );
               },
@@ -162,111 +159,166 @@ class _HomeState extends ConsumerState<Home> {
           ),
         ),
       ),
-      body: Container(
-        child: SingleChildScrollView(
-          controller: _scrollController,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                key: ref.read(keysProvider)[0],
-                child: Header(),
+      body: SingleChildScrollView(
+        controller: scrollProvider.scrollController,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              key: scrollProvider.keys[0],
+              child: Header(),
+            ),
+            Container(key: scrollProvider.keys[1], child: Carousel()),
+            const SizedBox(
+              height: 20.0,
+            ),
+            Container(key: scrollProvider.keys[2], child: CvSection()),
+        Container(
+              key: scrollProvider.keys[3],
+              child: StreamBuilder(
+                stream: FirebaseFirestore.instance
+                    .collection('projects')
+                    .orderBy('time', descending: true)
+                    .snapshots(),
+                builder: (BuildContext context,
+                    AsyncSnapshot<QuerySnapshot> snapshot) {
+                  // Check if snapshot has no data or an error occurred
+                  // if (!snapshot.hasData || snapshot.hasError) {
+                  //   return const SizedBox(); // Return an empty SizedBox if no data or there's an error
+                  // }
+                  if (snapshot.hasError) {
+                    print('Error fetching projects: ${snapshot.error}');
+                    return const Center(
+                      child: Text('An error occurred while fetching projects.'),
+                    );
+                  }
+
+                  if (!snapshot.hasData) {
+                     return const Center(
+                      child: Text('No projects available.'),
+                    );
+                  }
+
+                  // Ensure that snapshot data is not null before accessing it
+                final project = snapshot.data?.docs.map((doc) {
+                        print('Document data: ${doc.data()}'); // Debug log
+                        return Project.fromDocument(doc as DocumentSnapshot);
+                      }).toList() ??
+                      [];
+
+                  // Return a message if the project list is empty
+                  if (project.isEmpty) {
+                    return const Center(
+                      child: Text('No projects available.'),
+                    );
+                  }
+
+                  // Build the ListView if data is available
+                  return ListView.builder(
+                    shrinkWrap:
+                        true, // Allows ListView to fit within the scroll view
+                    physics:
+                        const NeverScrollableScrollPhysics(), // Prevents separate scrolling
+                    itemCount: project.length,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 10.0),
+                        child: ProjectView(
+                          index: index,
+                          imagePath: project[index].imageUrls.isNotEmpty
+                              ? project[index].imageUrls.first
+                              : '', // Use an empty string if no image URLs are available
+                          title: project[index].title,
+                          description: project[index].description,
+                          viewCodeUrl: project[index].repoUrl,
+                          viewAppUrl: project[index].hostedAppUrl,
+                          appType: project[index].appType,
+                          applicationTypeTitle:
+                              project[index].applicationTypeTitle,
+                        ),
+                      );
+                    },
+                  );
+                },
               ),
-              Container(key: ref.read(keysProvider)[1], child: Carousel()),
-              SizedBox(
-                height: 20.0,
+            ),
+
+            const SizedBox(
+              height: 70.0,
+            ),
+            Center(
+              child: Text(
+                "Please Ask For More Projects",
+                style: GoogleFonts.oswald(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w900,
+                  fontSize: 30.0,
+                  height: 1.3,
+                ),
               ),
-              Container(key: ref.read(keysProvider)[2], child: CvSection()),
-              Container(key: ref.read(keysProvider)[3], child: IosAppAd()),
-              SizedBox(
-                height: 70.0,
-              ),
-              Container(key: ref.read(keysProvider)[4], child: WebsiteAd()),
-              SizedBox(
-                height: 20.0,
-              ),
-              Center(
-                child: Text(
-                  "Please Ask For More Projects",
-                  style: GoogleFonts.oswald(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w900,
-                    fontSize: 30.0,
-                    height: 1.3,
+            ),
+
+            Center(
+              child: Column(
+                children: [
+                  const Text(
+                    "OR",
+                    style: TextStyle(
+                        color: Colors.white, height: 1.8, fontSize: 16),
                   ),
-                ),
-              ),
+                  GestureDetector(
+                    onTap: () async {
+                      const url =
+                          'https://github.com/Dagi-Moses'; // Replace with your URL
 
-              Center(
-                child: Column(
-                  children: [
-                    Text(
-                      "OR",
-                      style: TextStyle(
-                          color: Colors.white, height: 1.8, fontSize: 16),
+                      if (await canLaunchUrl(Uri.parse(url))) {
+                        await launchUrl(Uri.parse(url));
+                      } else {
+                        throw 'Could not launch $url';
+                      }
+                    },
+                    child:
+                        const Text("click here to view my Git Hub Repository,",
+                            style: TextStyle(
+                              decoration: TextDecoration.underline,
+                              decorationColor: kPrimaryColor,
+                              color: kPrimaryColor,
+                              fontWeight: FontWeight.w700,
+                              height: 1.8,
+                            )),
+                  ),
+                  const Text(
+                    "This is the portfolio section. There is alot of work here",
+                    style: TextStyle(
+                      color: Colors.white,
+                      height: 1.8,
                     ),
-                    RichText(
-                      text: TextSpan(
-                        children: [
-                          TextSpan(
-                              recognizer: TapGestureRecognizer()
-                                ..onTap = () async {
-                                  const url =
-                                      'https://github.com/Dagi-Moses'; // Replace with your URL
-
-                                  if (await canLaunchUrl(Uri.parse(url))) {
-                                    await launchUrl(Uri.parse(url));
-                                  } else {
-                                    throw 'Could not launch $url';
-                                  }
-                                },
-                              text: "click here to view my Git Hub Repository,",
-                              style: TextStyle(
-                                decoration: TextDecoration.underline,
-                                decorationColor: kPrimaryColor,
-                                color: kPrimaryColor,
-                                fontWeight: FontWeight.w700,
-                                height: 1.8,
-                              )),
-                        ],
-                      ),
-                    ),
-                    Text(
-                      "This is the portfolio section. There is alot of work here",
-                      style: TextStyle(
-                        color: Colors.white,
-                        height: 1.8,
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-              Padding(
-                key: ref.read(keysProvider)[5],
-                padding: const EdgeInsets.symmetric(vertical: 28.0),
-                child: PortfolioStats(),
-              ),
-              SizedBox(
-                height: 50.0,
-              ),
-              Container(
-                  key: ref.read(keysProvider)[6], child: EducationSection()),
-              SizedBox(
-                height: ScreenHelper.isMobile(context) ? 0 : 50.0,
-              ),
-              Container(key: ref.read(keysProvider)[7], child: SkillSection()),
-              SizedBox(
-                height: 50.0,
-              ),
-              // Sponsors(),
-              // SizedBox(
-              //   height: 50.0,
-              // ),
-              Container(
-                  key: ref.read(keysProvider)[8], child: TestimonialWidget()),
-              Container(key: ref.read(keysProvider)[9], child: Footer()),
-            ],
-          ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 28.0),
+              child: PortfolioStats(),
+            ),
+            const SizedBox(
+              height: 50.0,
+            ),
+            Container(key: scrollProvider.keys[4], child: EducationSection()),
+            SizedBox(
+              height: ScreenHelper.isMobile(context) ? 0 : 50.0,
+            ),
+            Container(key: scrollProvider.keys[5], child: SkillSection()),
+            const SizedBox(
+              height: 50.0,
+            ),
+            // Sponsors(),
+            // SizedBox(
+            //   height: 50.0,
+            // ),
+            Container(key: scrollProvider.keys[6], child: TestimonialWidget()),
+            Container(key: scrollProvider.keys[7], child: Footer()),
+          ],
         ),
       ),
     );

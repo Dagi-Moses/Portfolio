@@ -8,7 +8,7 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../utils/constants.dart';
 import '../../utils/screen_helper.dart';
 
-class WebsiteAd extends StatelessWidget {
+class Notes extends StatelessWidget {
   // We can use same idea as ios_app_ad.dart and swap children order, let's copy code
   @override
   Widget build(BuildContext context) {
@@ -22,7 +22,7 @@ class WebsiteAd extends StatelessWidget {
   }
 
   Widget _buildUi(double width) {
- 
+  
     return Center(
       child: LayoutBuilder(
         builder: (context, constraints) {
@@ -31,7 +31,7 @@ class WebsiteAd extends StatelessWidget {
             minWidth: width,
             defaultScale: false,
             child: Container(
-               margin: EdgeInsets.only(top:  constraints.maxWidth > 720.0 ? 100 : 0,),
+               margin: EdgeInsets.only(top:  constraints.maxWidth > 720.0 ? 60 : 0,),
               child: Flex(
                 direction: constraints.maxWidth > 720
                     ? Axis.horizontal
@@ -56,7 +56,7 @@ class WebsiteAd extends StatelessWidget {
                           height: 15.0,
                         ),
                         Text(
-                          "TWITTER CLONE\n",
+                          "NOTES",
                           style: GoogleFonts.oswald(
                             color: Colors.white,
                             fontWeight: FontWeight.w900,
@@ -64,11 +64,11 @@ class WebsiteAd extends StatelessWidget {
                             fontSize: 35.0,
                           ),
                         ),
-                        // SizedBox(
-                        //   height: 10.0,
-                        // ),
+                        SizedBox(
+                          height: 10.0,
+                        ),
                         Text(
-                          "Twitter clone is a full stack fully functional imitiation of the popular Twitter application. It was done as a personal project and includes features like: posting, liking and commenting tweets, one to one chatting, searching for users and tweet, 'follow' notification, profile update etc.",
+                          "Notes clone is a full stack fully functional imitiation of the IOS 'Notes'application. It was done as a personal project and includes all the basic.",
                           style: TextStyle(
                             color: kCaptionColor,
                             height: 1.5,
@@ -94,7 +94,7 @@ class WebsiteAd extends StatelessWidget {
                                 child: TextButton(
                                   onPressed: () async {
                                     const url =
-                                        'https://github.com/Dagi-Moses/twitter-clone'; // Replace with your URL
+                                        'https://github.com/Dagi-Moses/notes'; // Replace with your URL
 
                                     if (await canLaunchUrl(Uri.parse(url))) {
                                       await launchUrl(Uri.parse(url));
@@ -131,7 +131,7 @@ class WebsiteAd extends StatelessWidget {
                      child: SizedBox(
                       height: 350,
                       child: Image.asset(
-                        'assets/twitter.png',
+                        'assets/notes.png',
                         width: constraints.maxWidth > 720.0 ? null : 350.0,
                       ),
                      

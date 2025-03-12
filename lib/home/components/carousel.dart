@@ -7,58 +7,56 @@ import '../../utils/screen_helper.dart';
 import 'carousel_items.dart';
 
 class Carousel extends StatelessWidget {
-  final CarouselController carouselController = CarouselController();
+ // final CarouselController carouselController = CarouselController();
   @override
   Widget build(BuildContext context) {
     double carouselContainerHeight = MediaQuery.of(context).size.height *
-        (ScreenHelper.isMobile(context) ? .7 : .85);
-    return Container(
+        (ScreenHelper.isMobile(context) ? 0.42 : .85);
+        //before it was '.7' not '0.45'
+    return SizedBox(
       height: carouselContainerHeight,
       width: double.infinity,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Container(
-            alignment: Alignment.center,
-            child: CarouselSlider(
-              carouselController: carouselController,
-              options: CarouselOptions(
-                // autoPlay: true,
-                viewportFraction: 1,
-                scrollPhysics: NeverScrollableScrollPhysics(),
-                height: carouselContainerHeight,
-              ),
-              items: List.generate(
-                carouselItems.length,
-                (index) => Builder(
-                  builder: (BuildContext context) {
-                    return Container(
-                      constraints: BoxConstraints(
-                        minHeight: carouselContainerHeight,
-                      ),
-                      child: ScreenHelper(
-                        // Responsive views
-                        desktop: _buildDesktop(
-                          context,
-                          carouselItems[index].text,
-                          carouselItems[index].image,
-                        ),
-                        tablet: _buildTablet(
-                          context,
-                          carouselItems[index].text,
-                          carouselItems[index].image,
-                        ),
-                        mobile: _buildMobile(
-                          context,
-                          carouselItems[index].text,
-                          carouselItems[index].image,
-                        ),
-                      ),
-                    );
-                  },
-                ),
-              ).toList(),
+          CarouselSlider(
+        //    carouselController: carouselController,
+            options: CarouselOptions(
+              // autoPlay: true,
+              viewportFraction: 1,
+              scrollPhysics: const NeverScrollableScrollPhysics(),
+              height: carouselContainerHeight,
             ),
+            items: List.generate(
+              carouselItems.length,
+              (index) => Builder(
+                builder: (BuildContext context) {
+                  return Container(
+                    constraints: BoxConstraints(
+                      minHeight: carouselContainerHeight,
+                    ),
+                    child: ScreenHelper(
+                      // Responsive views
+                      desktop: _buildDesktop(
+                        context,
+                        carouselItems[index].text,
+                        carouselItems[index].image,
+                      ),
+                      tablet: _buildTablet(
+                        context,
+                        carouselItems[index].text,
+                        carouselItems[index].image,
+                      ),
+                      mobile: _buildMobile(
+                        context,
+                        carouselItems[index].text,
+                        carouselItems[index].image,
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ).toList(),
           )
         ],
       ),
@@ -68,21 +66,23 @@ class Carousel extends StatelessWidget {
 
 // Big screens
 Widget _buildDesktop(BuildContext context, Widget text, Widget image) {
-  return Center(
-    child: ResponsiveWrapper(
-      maxWidth: kDesktopMaxWidth,
-      minWidth: kDesktopMaxWidth,
-      defaultScale: false,
-      child: Row(
-        children: [
-          Expanded(
-            child: text,
-          ),
-          Expanded(
-            child: image,
-          )
-        ],
-      ),
+  return ResponsiveWrapper(
+    maxWidth: kDesktopMaxWidth,
+    minWidth: kDesktopMaxWidth,
+    defaultScale: false,
+    child: Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Expanded(
+          flex: 2,
+          child: text,
+        ),
+       // const Spacer(),
+        Expanded(
+          child: image,
+        )
+      ],
     ),
   );
 }

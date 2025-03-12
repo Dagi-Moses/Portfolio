@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
@@ -67,66 +66,64 @@ class EducationSection extends StatelessWidget {
               ),
             ),
 
-            SizedBox(
+            const SizedBox(
               height: 40.0,
             ),
             LayoutBuilder(
               builder: (context, constraints) {
-                return Container(
-                  child: Wrap(
-                    spacing: 20.0,
-                    runSpacing: 20.0,
-                    children: educationList
-                        .map(
-                          (education) => Container(
-                            width: constraints.maxWidth / 2.0 - 20.0,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  education.period,
-                                  style: GoogleFonts.oswald(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w700,
-                                    fontSize: 20.0,
-                                  ),
+                return Wrap(
+                  spacing: 20.0,
+                  runSpacing: 20.0,
+                  children: educationList
+                      .map(
+                        (education) => Container(
+                          width: constraints.maxWidth / 2.0 - 20.0,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                education.period,
+                                style: GoogleFonts.oswald(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 20.0,
                                 ),
-                                SizedBox(
-                                  height: 5.0,
+                              ),
+                              const SizedBox(
+                                height: 5.0,
+                              ),
+                              Text(
+                                education.description,
+                                maxLines: 4,
+                                overflow: TextOverflow.ellipsis,
+                                style: const TextStyle(
+                                  color: kCaptionColor,
+                                  height: 1.5,
                                 ),
-                                Text(
-                                  education.description,
-                                  maxLines: 4,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
-                                    color: kCaptionColor,
-                                    height: 1.5,
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 20.0,
-                                ),
-                                MouseRegion(
-                                  cursor: SystemMouseCursors.click,
-                                  child: GestureDetector(
-                                    onTap: () {},
-                                    child: Text(
-                                      education.linkName,
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                      ),
+                              ),
+                              const SizedBox(
+                                height: 20.0,
+                              ),
+                              MouseRegion(
+                                cursor: SystemMouseCursors.click,
+                                child: GestureDetector(
+                                  onTap: () {},
+                                  child: Text(
+                                    education.linkName,
+                                    style: const TextStyle(
+                                      color: Colors.white,
                                     ),
                                   ),
                                 ),
-                                SizedBox(
-                                  height: ScreenHelper.isMobile(context)? 15: 40.0,
-                                )
-                              ],
-                            ),
+                              ),
+                              SizedBox(
+                                height: ScreenHelper.isMobile(context)? 15: 40.0,
+                              )
+                            ],
                           ),
-                        )
-                        .toList(),
-                  ),
+                        ),
+                      )
+                      .toList(),
                 );
               },
             )

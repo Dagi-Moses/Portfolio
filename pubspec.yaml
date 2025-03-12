@@ -30,17 +30,27 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  google_fonts: ^2.3.3
+
   responsive_framework: ^0.1.9
- # flutter_icons: ^1.1.0
-  smooth_page_indicator: ^0.2.3
-  carousel_slider: ^4.0.0
+  provider: ^6.1.2
+  carousel_slider: ^4.2.1
   cupertino_icons: any
   universal_html: ^2.2.2
-  url_launcher: ^6.0.18
+  url_launcher: ^6.3.0
   font_awesome_flutter: ^10.4.0
-  flutter_riverpod: ^2.3.6
-  firebase_core: ^2.15.0
+  firebase_core: ^3.4.1
+  google_fonts: ^6.2.1
+  firebase_auth: ^5.2.1
+  firebase_storage: ^12.3.0
+  cloud_firestore: ^5.4.1
+  ionicons: ^0.2.2
+  supercharged: ^2.1.1
+  simple_animations: ^5.0.2
+  pin_code_fields: ^8.0.1
+  fluttertoast: ^8.2.8
+  file_picker: ^8.1.2
+  uuid: ^4.5.1
+  
 
 dev_dependencies:
   flutter_test:

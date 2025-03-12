@@ -1,0 +1,45 @@
+
+import 'package:flutter/material.dart';
+import 'package:Dagi_Moses_Portfolio/utils/constants.dart';
+class CustomButtonWidget extends StatelessWidget {
+  final Function()  onPressed;
+  final String buttonText;
+  bool loading = false;
+
+ CustomButtonWidget({required this.onPressed, required this.buttonText, Key? key, required this.loading}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return MouseRegion(
+      cursor: SystemMouseCursors.click,
+      child: Container(
+        decoration: BoxDecoration(
+          color: kPrimaryColor,
+          borderRadius: BorderRadius.circular(8.0),
+        ),
+        height: 48.0, 
+        padding: const EdgeInsets.symmetric(horizontal: 28.0),
+        child: TextButton(
+          onPressed: onPressed,
+          child: Center(
+            child: loading ?  SizedBox(
+            width: 40, // Width of the SizedBox
+            height: 40, // Height of the SizedBox
+            child: CircularProgressIndicator(
+              strokeWidth: 8, // Width of the progress indicator stroke
+              valueColor: AlwaysStoppedAnimation<Color>(Colors.blue), // Color of the progress
+            ),
+          ):Text(
+              buttonText,
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 13.0,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
