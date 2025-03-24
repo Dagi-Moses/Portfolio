@@ -16,7 +16,7 @@ class Sponsors extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(vertical: 50.0),
+      padding: const EdgeInsets.symmetric(vertical: 50.0),
       child: ScreenHelper(
         desktop: _buildUi(kDesktopMaxWidth),
         tablet: _buildUi(kTabletMaxWidth),

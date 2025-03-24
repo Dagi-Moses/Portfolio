@@ -103,7 +103,7 @@ class CvSection extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                   width: 45,
                 ),
@@ -133,73 +133,71 @@ class CvSection extends StatelessWidget {
               ],
             ),
           ]),
-          SizedBox(
+          const SizedBox(
             height: 50.0,
           ),
-          Container(
-            child: LayoutBuilder(
-              builder: (_context, constraints) {
-                return ResponsiveGridView.builder(
-                  padding: EdgeInsets.all(0.0),
-                  shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
-                  alignment: Alignment.topCenter,
-                  gridDelegate: ResponsiveGridDelegate(
-                    mainAxisSpacing: 20.0,
-                    crossAxisSpacing: 20.0,
-                    maxCrossAxisExtent: ScreenHelper.isTablet(context) ||
-                            ScreenHelper.isMobile(context)
-                        ? constraints.maxWidth / 2.0
-                        : 250.0,
-                    // Hack to adjust child height
-                    childAspectRatio: ScreenHelper.isDesktop(context)
-                        ? 1
-                        : MediaQuery.of(context).size.aspectRatio * 1.5,
-                  ),
-                  itemBuilder: (BuildContext context, int index) {
-                    return Container(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Image.asset(
-                                designProcesses[index].imagePath,
-                                width: 40.0,
-                              ),
-                              SizedBox(
-                                width: 15.0,
-                              ),
-                              Text(
-                                designProcesses[index].title,
-                                style: GoogleFonts.oswald(
-                                  fontSize: 20.0,
-                                  fontWeight: FontWeight.w700,
-                                  color: Colors.white,
-                                ),
-                              )
-                            ],
-                          ),
-                          SizedBox(
-                            height: 15.0,
-                          ),
-                          Text(
-                            designProcesses[index].subtitle,
-                            style: TextStyle(
-                              color: kCaptionColor,
-                              height: 1.5,
-                              fontSize: 14.0,
+          LayoutBuilder(
+            builder: (_context, constraints) {
+              return ResponsiveGridView.builder(
+                padding: const EdgeInsets.all(0.0),
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                alignment: Alignment.topCenter,
+                gridDelegate: ResponsiveGridDelegate(
+                  mainAxisSpacing: 20.0,
+                  crossAxisSpacing: 20.0,
+                  maxCrossAxisExtent: ScreenHelper.isTablet(context) ||
+                          ScreenHelper.isMobile(context)
+                      ? constraints.maxWidth / 2.0
+                      : 250.0,
+                  // Hack to adjust child height
+                  childAspectRatio: ScreenHelper.isDesktop(context)
+                      ? 1
+                      : MediaQuery.of(context).size.aspectRatio * 1.5,
+                ),
+                itemBuilder: (BuildContext context, int index) {
+                  return Container(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Image.asset(
+                              designProcesses[index].imagePath,
+                              width: 40.0,
                             ),
-                          )
-                        ],
-                      ),
-                    );
-                  },
-                  itemCount: designProcesses.length,
-                );
-              },
-            ),
+                            const SizedBox(
+                              width: 15.0,
+                            ),
+                            Text(
+                              designProcesses[index].title,
+                              style: GoogleFonts.oswald(
+                                fontSize: 20.0,
+                                fontWeight: FontWeight.w700,
+                                color: Colors.white,
+                              ),
+                            )
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 15.0,
+                        ),
+                        Text(
+                          designProcesses[index].subtitle,
+                          style: const TextStyle(
+                            color: kCaptionColor,
+                            height: 1.5,
+                            fontSize: 14.0,
+                          ),
+                        )
+                      ],
+                    ),
+                  );
+                },
+                itemCount: designProcesses.length,
+              );
+            },
           )
         ],
       ),

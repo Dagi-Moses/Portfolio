@@ -11,18 +11,23 @@ List<Skill> skills = [
     skill: "Flutter",
     percentage: 100,
   ),
-  Skill(
+   Skill(
+    skill: "Node Js",
+    percentage: 100,
+  ),
+   Skill(
+    skill: "React Native",
+    percentage: 80,
+  ),
+   Skill(
+    skill: "Mongo DB",
+    percentage: 100,
+  ),
+   Skill(
     skill: "Firebase",
     percentage: 90,
   ),
-  Skill(
-    skill: "Node Js",
-    percentage: 80,
-  ),
-  Skill(
-    skill: "Mongo DB",
-    percentage: 70,
-  ),
+  
   Skill(
     skill: "XML",
     percentage: 50,
@@ -80,7 +85,7 @@ class SkillSection extends StatelessWidget {
                     width: 300.0,
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 50.0,
                 ),
                 Expanded(
@@ -99,53 +104,43 @@ class SkillSection extends StatelessWidget {
                           height: 1.3,
                         ),
                       ),
-                      SizedBox(
-                        height: 10.0,
-                      ),
-                      Text(
-                        "This is all my current skills listed below more will be added in due time.",
-                        style: TextStyle(
-                          color: kCaptionColor,
-                          height: 1.5,
-                          fontSize: 16.0,
-                        ),
-                      ),
-                      SizedBox(
+                      
+                      const SizedBox(
                         height: 15.0,
                       ),
                       Column(
                         children: skills
                             .map(
                               (skill) => Container(
-                                margin: EdgeInsets.only(bottom: 15.0),
+                                margin: const EdgeInsets.only(bottom: 15.0),
                                 child: Row(
                                   children: [
                                     Expanded(
                                       flex: skill.percentage,
                                       child: Container(
-                                        padding: EdgeInsets.only(left: 10.0),
+                                        padding: const EdgeInsets.only(left: 10.0),
                                         alignment: Alignment.centerLeft,
                                         height: 38.0,
                                         child: Text(skill.skill),
                                         color: Colors.white,
                                       ),
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                       width: 10.0,
                                     ),
                                     Expanded(
                                       // remaining (blank part)
                                       flex: 100 - skill.percentage,
-                                      child: Divider(
+                                      child: const Divider(
                                         color: Colors.white,
                                       ),
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                       width: 10.0,
                                     ),
                                     Text(
                                       "${skill.percentage}%",
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         color: Colors.white,
                                         fontSize: 16.0,
                                       ),

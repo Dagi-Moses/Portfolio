@@ -3,12 +3,15 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:url_launcher/url_launcher.dart';
-
 import '../../utils/constants.dart';
 import '../../utils/screen_helper.dart';
-import '../home.dart';
 
-class IosAppAd extends ConsumerWidget {
+
+
+String punchText =
+    "The Punch Anniversary Demo, built with Flutter and Node.js replaces the previous crashed version with improved data management, SQL-to-MongoDB migration, automated two-week email reminders, and secure backups to Google Drive and local storage; This version highlights some key functionality, while the full system is securely deployed on Punch Nigeria’s internal servers.\nDemo username: admin,    password:admin";
+
+class PunchDemo extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ref) {
     return ScreenHelper(
@@ -19,9 +22,8 @@ class IosAppAd extends ConsumerWidget {
   }
 
   Widget _buildUi(double width, ref) {
-    final scrollToSection = ref.read(scrollToSectionProvider);
-    final keys = ref.read(keysProvider);
-  
+ 
+
     return Center(
       child: LayoutBuilder(
         builder: (context, constraints) {
@@ -30,42 +32,26 @@ class IosAppAd extends ConsumerWidget {
             minWidth: width,
             defaultScale: false,
             child: Flex(
-              direction: constraints.maxWidth > 720
-                  ? Axis.horizontal
-                  : Axis.vertical,
+              direction:
+                  constraints.maxWidth > 720 ? Axis.horizontal : Axis.vertical,
               children: [
                 // Disable expanded on smaller screen to avoid Render errors by setting flex to 0
                 Expanded(
                   flex: constraints.maxWidth > 720.0 ? 1 : 0,
-                  child: SizedBox(
-                    height: 350,
-                    child: Image.asset(
-                      'assets/make_attendance.jpg',
-                      width: constraints.maxWidth > 720.0 ? null : 350.0,
+                  child: AspectRatio(
+                    aspectRatio:
+                        16 / 9, // Change to 4/5 or 3/4 for portrait images
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Image.asset(
+                        'assets/live/punch_demo.png',
+                        fit: BoxFit
+                            .contain
+                      ),
                     ),
-                    //                   child:CarouselSlider(
-                    //   options: CarouselOptions(
-                    //  // Set the height of the carousel
-                    //     enlargeCenterPage: true, // Increase the size of the center item
-                    //     autoPlay: true, // Enable auto-play
-                    //     autoPlayInterval: Duration(seconds: 3), // Set auto-play interval
-                    //     autoPlayAnimationDuration: Duration(milliseconds: 800), // Set animation duration
-                    //     autoPlayCurve: Curves.fastOutSlowIn, // Set animation curve
-                    //   ),
-                    //   items: imagesList.map((e) {
-                    //     return Builder(
-                    //       builder: (BuildContext context) {
-                    //         return Image.network(
-                    //            e,
-                    //           width: constraints.maxWidth > 720.0 ? null : 350.0,
-            
-                    //           fit: BoxFit.cover,
-                    //         );
-                    //       },
-                    //     );
-                    //   }).toList(),),
                   ),
                 ),
+const SizedBox(width: 30,),
                 Expanded(
                   flex: constraints.maxWidth > 720.0 ? 1 : 0,
                   child: Column(
@@ -76,7 +62,7 @@ class IosAppAd extends ConsumerWidget {
                         height: 15,
                       ),
                       Text(
-                        "Mobile Application",
+                        "Web Application",
                         style: GoogleFonts.oswald(
                           color: kPrimaryColor,
                           fontWeight: FontWeight.w900,
@@ -87,7 +73,7 @@ class IosAppAd extends ConsumerWidget {
                         height: 15.0,
                       ),
                       Text(
-                        "Geo Flix",
+                        "Punch Anniversary Demo",
                         style: GoogleFonts.oswald(
                           color: Colors.white,
                           fontWeight: FontWeight.w900,
@@ -98,9 +84,9 @@ class IosAppAd extends ConsumerWidget {
                       const SizedBox(
                         height: 10.0,
                       ),
-                      const Text(
-                        "Geo Flix is a human resource attendance management application that makes use of google map and geofencing to track employee attendance",
-                        style: TextStyle(
+                       Text(
+                       punchText,
+                        style: const TextStyle(
                           color: kCaptionColor,
                           height: 1.5,
                           fontSize: 15.0,
@@ -115,18 +101,18 @@ class IosAppAd extends ConsumerWidget {
                             cursor: SystemMouseCursors.click,
                             child: Container(
                               decoration: BoxDecoration(
+                                color: kPrimaryColor,
                                 borderRadius: BorderRadius.circular(8.0),
-                                border: Border.all(
-                                  color: kPrimaryColor,
-                                ),
                               ),
                               height: 48.0,
-                              padding: const EdgeInsets.symmetric(horizontal: 28.0),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 28.0,
+                              ),
                               child: TextButton(
-                                onPressed: () async {
+                              onPressed: () async {
                                   const url =
-                                      'https://github.com/Dagi-Moses/project'; // Replace with your URL
-            
+                                      'https://github.com/Dagi-Moses/punch_demo'; // Replace with your URL
+
                                   if (await canLaunchUrl(Uri.parse(url))) {
                                     await launchUrl(Uri.parse(url));
                                   } else {
@@ -135,7 +121,49 @@ class IosAppAd extends ConsumerWidget {
                                 },
                                 child: const Center(
                                   child: Text(
-                                    "View Code",
+                                   "View Code",
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 13.0,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 10.0,
+                          ),
+
+                         
+                          MouseRegion(
+                            cursor: SystemMouseCursors.click,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                
+                                borderRadius: BorderRadius.circular(8.0),
+                                border: Border.all(
+                                  color: kPrimaryColor,
+                                ),
+                              ),
+                              height: 48.0,
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 28.0),
+                              child: TextButton(
+                                onPressed: () async {
+                                  const url =
+                                      'https://punchdemo.vercel.app/'; // Replace with your URL
+
+                                  if (await canLaunchUrl(Uri.parse(url))) {
+                                    await launchUrl(Uri.parse(url));
+                                  } else {
+                                    throw 'Could not launch $url';
+                                  }
+                                },
+                                child: const Center(
+                                  child: Text(
+                                    "Live Demo",
                                     style: TextStyle(
                                       color: kPrimaryColor,
                                       fontSize: 13.0,
@@ -145,8 +173,7 @@ class IosAppAd extends ConsumerWidget {
                                 ),
                               ),
                             ),
-                          ),
-                          
+                          )
                         ],
                       )
                     ],
@@ -160,3 +187,4 @@ class IosAppAd extends ConsumerWidget {
     );
   }
 }
+

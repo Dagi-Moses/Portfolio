@@ -1,3 +1,4 @@
+import 'package:Dagi_Moses_Portfolio/home/components/punch_demo.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -34,6 +35,7 @@ final keysProvider = Provider<List<GlobalKey>>((ref) => [
       GlobalKey(),
       GlobalKey(),
       GlobalKey(),
+      GlobalKey(),
       // Add more keys for other widgets
     ]);
 Size ?screenSize;
@@ -45,8 +47,8 @@ final scrollToSectionProvider =
         key.currentContext!.findRenderObject() as RenderBox;
     final offset = screenSize!.width < 400 ? renderBox.localToGlobal(Offset.zero).dy +100:renderBox.localToGlobal(Offset.zero).dy;
     _scrollController.animateTo(offset,
-        duration: Duration(milliseconds: 600), curve: Curves.easeIn);
-    ;
+        duration: const Duration(milliseconds: 600), curve: Curves.easeIn);
+    
   };
 });
 
@@ -114,7 +116,7 @@ class _HomeState extends ConsumerState<Home> {
       endDrawer: Drawer(
         child: SafeArea(
           child: Padding(
-            padding: EdgeInsets.symmetric(
+            padding: const EdgeInsets.symmetric(
               horizontal: 16.0,
               vertical: 24.0,
             ),
@@ -128,12 +130,12 @@ class _HomeState extends ConsumerState<Home> {
                             color: kDangerColor,
                             borderRadius: BorderRadius.circular(8.0),
                           ),
-                          padding: EdgeInsets.symmetric(horizontal: 28.0),
+                          padding: const EdgeInsets.symmetric(horizontal: 28.0),
                           child: TextButton(
                             onPressed: headerItems![index].onTap,
                             child: Text(
                               headerItems![index].title,
-                              style: TextStyle(
+                              style: const TextStyle(
                                 color: Colors.white,
                                 fontSize: 13.0,
                                 fontWeight: FontWeight.bold,
@@ -146,14 +148,14 @@ class _HomeState extends ConsumerState<Home> {
                         onTap: headerItems![index].onTap,
                         title: Text(
                           headerItems![index].title,
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: Colors.white,
                           ),
                         ),
                       );
               },
               separatorBuilder: (BuildContext context, int index) {
-                return SizedBox(
+                return const SizedBox(
                   height: 10.0,
                 );
               },
@@ -162,111 +164,108 @@ class _HomeState extends ConsumerState<Home> {
           ),
         ),
       ),
-      body: Container(
-        child: SingleChildScrollView(
-          controller: _scrollController,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                key: ref.read(keysProvider)[0],
-                child: Header(),
+      body: SingleChildScrollView(
+        controller: _scrollController,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              key: ref.read(keysProvider)[0],
+              child: Header(),
+            ),
+            Container(key: ref.read(keysProvider)[1], child: Carousel()),
+            const SizedBox(
+              height: 20.0,
+            ),
+            Container(key: ref.read(keysProvider)[2], child: CvSection()),
+
+            Container(key: ref.read(keysProvider)[3], child:  PunchDemo()),
+            const SizedBox(
+              height: 70.0,
+            ),
+            Container(key: ref.read(keysProvider)[4], child: IosAppAd()),
+            const SizedBox(
+              height: 70.0,
+            ),
+            Container(key: ref.read(keysProvider)[5], child: WebsiteAd()),
+            const SizedBox(
+              height: 20.0,
+            ),
+            Center(
+              child: Text(
+                "Please Ask For More Projects",
+                style: GoogleFonts.oswald(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w900,
+                  fontSize: 30.0,
+                  height: 1.3,
+                ),
               ),
-              Container(key: ref.read(keysProvider)[1], child: Carousel()),
-              SizedBox(
-                height: 20.0,
-              ),
-              Container(key: ref.read(keysProvider)[2], child: CvSection()),
-              Container(key: ref.read(keysProvider)[3], child: IosAppAd()),
-              SizedBox(
-                height: 70.0,
-              ),
-              Container(key: ref.read(keysProvider)[4], child: WebsiteAd()),
-              SizedBox(
-                height: 20.0,
-              ),
-              Center(
-                child: Text(
-                  "Please Ask For More Projects",
-                  style: GoogleFonts.oswald(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w900,
-                    fontSize: 30.0,
-                    height: 1.3,
+            ),
+      
+            Center(
+              child: Column(
+                children: [
+                  const Text(
+                    "OR",
+                    style: TextStyle(
+                        color: Colors.white, height: 1.8, fontSize: 16),
                   ),
-                ),
-              ),
-
-              Center(
-                child: Column(
-                  children: [
-                    Text(
-                      "OR",
-                      style: TextStyle(
-                          color: Colors.white, height: 1.8, fontSize: 16),
+                  RichText(
+                    text: TextSpan(
+                      children: [
+                        TextSpan(
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = () async {
+                                const url =
+                                    'https://github.com/Dagi-Moses'; // Replace with your URL
+      
+                                if (await canLaunchUrl(Uri.parse(url))) {
+                                  await launchUrl(Uri.parse(url));
+                                } else {
+                                  throw 'Could not launch $url';
+                                }
+                              },
+                            text: "View my Git Hub Repository",
+                            style: const TextStyle(
+                              decoration: TextDecoration.underline,
+                              decorationColor: kPrimaryColor,
+                              color: kPrimaryColor,
+                              fontWeight: FontWeight.w700,
+                              height: 1.8,
+                            )),
+                      ],
                     ),
-                    RichText(
-                      text: TextSpan(
-                        children: [
-                          TextSpan(
-                              recognizer: TapGestureRecognizer()
-                                ..onTap = () async {
-                                  const url =
-                                      'https://github.com/Dagi-Moses'; // Replace with your URL
-
-                                  if (await canLaunchUrl(Uri.parse(url))) {
-                                    await launchUrl(Uri.parse(url));
-                                  } else {
-                                    throw 'Could not launch $url';
-                                  }
-                                },
-                              text: "click here to view my Git Hub Repository,",
-                              style: TextStyle(
-                                decoration: TextDecoration.underline,
-                                decorationColor: kPrimaryColor,
-                                color: kPrimaryColor,
-                                fontWeight: FontWeight.w700,
-                                height: 1.8,
-                              )),
-                        ],
-                      ),
-                    ),
-                    Text(
-                      "This is the portfolio section. There is alot of work here",
-                      style: TextStyle(
-                        color: Colors.white,
-                        height: 1.8,
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                
+                ],
               ),
-              Padding(
-                key: ref.read(keysProvider)[5],
-                padding: const EdgeInsets.symmetric(vertical: 28.0),
-                child: PortfolioStats(),
-              ),
-              SizedBox(
-                height: 50.0,
-              ),
-              Container(
-                  key: ref.read(keysProvider)[6], child: EducationSection()),
-              SizedBox(
-                height: ScreenHelper.isMobile(context) ? 0 : 50.0,
-              ),
-              Container(key: ref.read(keysProvider)[7], child: SkillSection()),
-              SizedBox(
-                height: 50.0,
-              ),
-              // Sponsors(),
-              // SizedBox(
-              //   height: 50.0,
-              // ),
-              Container(
-                  key: ref.read(keysProvider)[8], child: TestimonialWidget()),
-              Container(key: ref.read(keysProvider)[9], child: Footer()),
-            ],
-          ),
+            ),
+            Padding(
+              key: ref.read(keysProvider)[6],
+              padding: const EdgeInsets.symmetric(vertical: 28.0),
+              child: PortfolioStats(),
+            ),
+            const SizedBox(
+              height: 50.0,
+            ),
+            Container(
+                key: ref.read(keysProvider)[7], child: EducationSection()),
+            SizedBox(
+              height: ScreenHelper.isMobile(context) ? 0 : 50.0,
+            ),
+            Container(key: ref.read(keysProvider)[8], child: SkillSection()),
+            const SizedBox(
+              height: 50.0,
+            ),
+            // Sponsors(),
+            // SizedBox(
+            //   height: 50.0,
+            // ),
+            Container(
+                key: ref.read(keysProvider)[9], child: TestimonialWidget()),
+            Container(key: ref.read(keysProvider)[10], child: Footer()),
+          ],
         ),
       ),
     );
