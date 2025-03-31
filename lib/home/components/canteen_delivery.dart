@@ -1,17 +1,14 @@
-
 import 'package:Dagi_Moses_Portfolio/widgets/link_buttons.dart';
 import 'package:flutter/material.dart';
-
 import 'package:google_fonts/google_fonts.dart';
-import 'package:responsive_framework/responsive_wrapper.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:responsive_framework/responsive_framework.dart';
+
 
 import '../../utils/constants.dart';
 import '../../utils/screen_helper.dart';
 
-class TwitterClone extends StatelessWidget {
-  const TwitterClone({super.key});
-
+class CanteenDelivery extends StatelessWidget {
+  CanteenDelivery({super.key}); 
 
   @override
   Widget build(BuildContext context) {
@@ -22,6 +19,10 @@ class TwitterClone extends StatelessWidget {
     );
   }
 
+  String punchText =
+      "Node-Tech Canteen Delivery is a driver app for handling canteen orders. Built with Flutter and a Node.js server, it lets drivers accept and deliver orders with ease. It includes order notifications, Google Maps integration for navigation, and multi-language support. The app based on an existing system, was integrated to work with the Node-Tech Canteen system and enhance users experience.\nDemo login: user@gmail.com,    password:user11";
+
+
   Widget _buildUi(double width) {
     return Center(
       child: LayoutBuilder(
@@ -31,25 +32,10 @@ class TwitterClone extends StatelessWidget {
             minWidth: width,
             defaultScale: false,
             child: Flex(
-              direction: constraints.maxWidth > 720
-                  ? Axis.horizontal
-                  : Axis.vertical,
+              direction:
+                  constraints.maxWidth > 720 ? Axis.horizontal : Axis.vertical,
               children: [
-             
-                Expanded(
-                  flex: constraints.maxWidth > 720.0 ? 1 : 0,
-                  child: SizedBox(
-                    height: 350,
-                    child: Image.asset(
-                      'assets/twitter_clone/twitterclone.png',
-                      width: constraints.maxWidth > 720.0 ? null : 350.0,
-                    ),
-                  ),
-                ),
-
-                const SizedBox(
-                  width: 25.0,
-                ),
+                // Disable expanded on smaller screen to avoid Render errors by setting flex to 0
                 Expanded(
                   flex: constraints.maxWidth > 720.0 ? 1 : 0,
                   child: Column(
@@ -68,7 +54,7 @@ class TwitterClone extends StatelessWidget {
                         height: 15.0,
                       ),
                       Text(
-                        "TWITTER CLONE",
+                        "Node-Tech Canteen Delivery",
                         style: GoogleFonts.oswald(
                           color: Colors.white,
                           fontWeight: FontWeight.w900,
@@ -79,9 +65,9 @@ class TwitterClone extends StatelessWidget {
                       const SizedBox(
                         height: 10.0,
                       ),
-                      const Text(
-                        "Twitter clone is a full stack fully functional imitiation of the popular Twitter application. It was done as a personal project and includes features like: posting, liking and commenting tweets, one to one chatting, searching for users and tweet, 'follow' notification, profile update etc.",
-                        style: TextStyle(
+                      Text(
+                        punchText,
+                        style: const TextStyle(
                           color: kCaptionColor,
                           height: 1.5,
                           fontSize: 15.0,
@@ -90,19 +76,29 @@ class TwitterClone extends StatelessWidget {
                       const SizedBox(
                         height: 25.0,
                       ),
-                      const Row(
-                        children: [
-                          LinkButton(url:  'https://github.com/Dagi-Moses/twitter-clone'),
-                          
-                        ],
-                      ),
+
+                      const LinkButtons(gitHubUrl:  'https://github.com/Dagi-Moses/canteen_delivery', liveDemoUrl: "https://appetize.io/embed/b_pfqx6pbnawvevjxwljvuxsrxsu"),
+                      
+                   
                       const SizedBox(
                         height: 70.0,
                       )
                     ],
                   ),
                 ),
-               
+                const SizedBox(
+                  width: 25.0,
+                ),
+                Expanded(
+                  flex: constraints.maxWidth > 720.0 ? 1 : 0,
+                  child: SizedBox(
+                    height: 350,
+                    child: Image.asset(
+                      'assets/canteen_delivery/canteen_delivery.png',
+                      width: constraints.maxWidth > 720.0 ? null : 350.0,
+                    ),
+                  ),
+                ),
               ],
             ),
           );

@@ -43,27 +43,7 @@ class IosAppAd extends ConsumerWidget {
                       'assets/make_attendance.jpg',
                       width: constraints.maxWidth > 720.0 ? null : 350.0,
                     ),
-                    //                   child:CarouselSlider(
-                    //   options: CarouselOptions(
-                    //  // Set the height of the carousel
-                    //     enlargeCenterPage: true, // Increase the size of the center item
-                    //     autoPlay: true, // Enable auto-play
-                    //     autoPlayInterval: Duration(seconds: 3), // Set auto-play interval
-                    //     autoPlayAnimationDuration: Duration(milliseconds: 800), // Set animation duration
-                    //     autoPlayCurve: Curves.fastOutSlowIn, // Set animation curve
-                    //   ),
-                    //   items: imagesList.map((e) {
-                    //     return Builder(
-                    //       builder: (BuildContext context) {
-                    //         return Image.network(
-                    //            e,
-                    //           width: constraints.maxWidth > 720.0 ? null : 350.0,
-            
-                    //           fit: BoxFit.cover,
-                    //         );
-                    //       },
-                    //     );
-                    //   }).toList(),),
+                 
                   ),
                 ),
                 Expanded(
@@ -87,7 +67,7 @@ class IosAppAd extends ConsumerWidget {
                         height: 15.0,
                       ),
                       Text(
-                        "Geo Flix",
+                        "Node-Tech Canteen",
                         style: GoogleFonts.oswald(
                           color: Colors.white,
                           fontWeight: FontWeight.w900,

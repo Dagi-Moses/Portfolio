@@ -16,16 +16,20 @@ List<Skill> skills = [
     percentage: 100,
   ),
    Skill(
-    skill: "React Native",
-    percentage: 80,
-  ),
-   Skill(
     skill: "Mongo DB",
     percentage: 100,
   ),
    Skill(
     skill: "Firebase",
-    percentage: 90,
+    percentage: 100,
+  ),
+     Skill(
+    skill: "React Native",
+    percentage: 50,
+  ),
+  Skill(
+    skill: "React.js",
+    percentage: 50,
   ),
   
   Skill(
@@ -34,35 +38,20 @@ List<Skill> skills = [
   ),
   Skill(
     skill: "Java",
-    percentage: 20,
+    percentage: 50,
   ),
-  Skill(
-    skill: "Android",
-    percentage: 100,
-  ),
-  Skill(
-    skill: "IOS",
-    percentage: 100,
-  ),
-  Skill(
-    skill: "Web",
-    percentage: 80,
-  ),
-  Skill(
-    skill: "DeskTop",
-    percentage: 80,
-  ),
+ 
 ];
 
 class SkillSection extends StatelessWidget {
+  const SkillSection({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: ScreenHelper(
-        desktop: _buildUi(kDesktopMaxWidth),
-        tablet: _buildUi(kTabletMaxWidth),
-        mobile: _buildUi(getMobileMaxWidth(context)),
-      ),
+    return ScreenHelper(
+      desktop: _buildUi(kDesktopMaxWidth),
+      tablet: _buildUi(kTabletMaxWidth),
+      mobile: _buildUi(getMobileMaxWidth(context)),
     );
   }
 

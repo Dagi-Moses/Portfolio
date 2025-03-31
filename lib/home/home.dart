@@ -1,3 +1,5 @@
+import 'package:Dagi_Moses_Portfolio/home/components/canteen_app.dart';
+import 'package:Dagi_Moses_Portfolio/home/components/canteen_delivery.dart';
 import 'package:Dagi_Moses_Portfolio/home/components/punch_demo.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +17,7 @@ import 'components/cv_section.dart';
 import 'components/education_section.dart';
 import 'components/footer.dart';
 import 'components/header.dart';
-import 'components/geoflix_app.dart';
+
 import 'components/portfolio_stats.dart';
 import 'components/skill_section.dart';
 import 'components/testimonial_widget.dart';
@@ -36,7 +38,8 @@ final keysProvider = Provider<List<GlobalKey>>((ref) => [
       GlobalKey(),
       GlobalKey(),
       GlobalKey(),
-      // Add more keys for other widgets
+      GlobalKey(),
+ 
     ]);
 Size ?screenSize;
 final scrollToSectionProvider =
@@ -183,11 +186,15 @@ class _HomeState extends ConsumerState<Home> {
             const SizedBox(
               height: 70.0,
             ),
-            Container(key: ref.read(keysProvider)[4], child: IosAppAd()),
+            Container(key: ref.read(keysProvider)[4], child: CanteenApp()),
             const SizedBox(
               height: 70.0,
             ),
-            Container(key: ref.read(keysProvider)[5], child: WebsiteAd()),
+            Container(key: ref.read(keysProvider)[5], child: TwitterClone()),
+            const SizedBox(
+              height: 70.0,
+            ),
+            Container(key: ref.read(keysProvider)[6], child: CanteenDelivery()),
             const SizedBox(
               height: 20.0,
             ),
@@ -242,7 +249,7 @@ class _HomeState extends ConsumerState<Home> {
               ),
             ),
             Padding(
-              key: ref.read(keysProvider)[6],
+              key: ref.read(keysProvider)[7],
               padding: const EdgeInsets.symmetric(vertical: 28.0),
               child: PortfolioStats(),
             ),
@@ -250,21 +257,18 @@ class _HomeState extends ConsumerState<Home> {
               height: 50.0,
             ),
             Container(
-                key: ref.read(keysProvider)[7], child: EducationSection()),
+                key: ref.read(keysProvider)[8], child: EducationSection()),
             SizedBox(
               height: ScreenHelper.isMobile(context) ? 0 : 50.0,
             ),
-            Container(key: ref.read(keysProvider)[8], child: SkillSection()),
+            Container(key: ref.read(keysProvider)[9], child: SkillSection()),
             const SizedBox(
               height: 50.0,
             ),
-            // Sponsors(),
-            // SizedBox(
-            //   height: 50.0,
-            // ),
+          
             Container(
-                key: ref.read(keysProvider)[9], child: TestimonialWidget()),
-            Container(key: ref.read(keysProvider)[10], child: Footer()),
+                key: ref.read(keysProvider)[10], child: TestimonialWidget()),
+            Container(key: ref.read(keysProvider)[11], child: Footer()),
           ],
         ),
       ),

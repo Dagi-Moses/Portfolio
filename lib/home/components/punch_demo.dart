@@ -1,3 +1,4 @@
+import 'package:Dagi_Moses_Portfolio/widgets/link_buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -44,7 +45,7 @@ class PunchDemo extends ConsumerWidget {
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Image.asset(
-                        'assets/live/punch_demo.png',
+                        'assets/punch_demo/punch_demo.png',
                         fit: BoxFit
                             .contain
                       ),
@@ -95,87 +96,9 @@ const SizedBox(width: 30,),
                       const SizedBox(
                         height: 25.0,
                       ),
-                      Row(
-                        children: [
-                          MouseRegion(
-                            cursor: SystemMouseCursors.click,
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: kPrimaryColor,
-                                borderRadius: BorderRadius.circular(8.0),
-                              ),
-                              height: 48.0,
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 28.0,
-                              ),
-                              child: TextButton(
-                              onPressed: () async {
-                                  const url =
-                                      'https://github.com/Dagi-Moses/punch_demo'; // Replace with your URL
 
-                                  if (await canLaunchUrl(Uri.parse(url))) {
-                                    await launchUrl(Uri.parse(url));
-                                  } else {
-                                    throw 'Could not launch $url';
-                                  }
-                                },
-                                child: const Center(
-                                  child: Text(
-                                   "View Code",
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 13.0,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                          const SizedBox(
-                            width: 10.0,
-                          ),
-
-                         
-                          MouseRegion(
-                            cursor: SystemMouseCursors.click,
-                            child: Container(
-                              decoration: BoxDecoration(
-                                
-                                borderRadius: BorderRadius.circular(8.0),
-                                border: Border.all(
-                                  color: kPrimaryColor,
-                                ),
-                              ),
-                              height: 48.0,
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 28.0),
-                              child: TextButton(
-                                onPressed: () async {
-                                  const url =
-                                      'https://punchdemo.vercel.app/'; // Replace with your URL
-
-                                  if (await canLaunchUrl(Uri.parse(url))) {
-                                    await launchUrl(Uri.parse(url));
-                                  } else {
-                                    throw 'Could not launch $url';
-                                  }
-                                },
-                                child: const Center(
-                                  child: Text(
-                                    "Live Demo",
-                                    style: TextStyle(
-                                      color: kPrimaryColor,
-                                      fontSize: 13.0,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          )
-                        ],
-                      )
+                      const LinkButtons(gitHubUrl: 'https://github.com/Dagi-Moses/punch_demo', liveDemoUrl: 'https://punchdemo.vercel.app/',),
+                    
                     ],
                   ),
                 )
