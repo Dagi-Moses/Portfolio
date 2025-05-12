@@ -11,27 +11,26 @@ List<Skill> skills = [
     skill: "Flutter",
     percentage: 100,
   ),
-   Skill(
+  Skill(
     skill: "Node Js",
     percentage: 100,
   ),
-   Skill(
+  Skill(
     skill: "Mongo DB",
     percentage: 100,
   ),
-   Skill(
+  Skill(
     skill: "Firebase",
     percentage: 100,
   ),
-     Skill(
+  Skill(
     skill: "React Native",
-    percentage: 50,
+    percentage: 80,
   ),
   Skill(
     skill: "React.js",
-    percentage: 50,
+    percentage: 80,
   ),
-  
   Skill(
     skill: "XML",
     percentage: 50,
@@ -40,7 +39,10 @@ List<Skill> skills = [
     skill: "Java",
     percentage: 50,
   ),
- 
+  Skill(
+    skill: "IT Networking",
+    percentage: 100,
+  ),
 ];
 
 class SkillSection extends StatelessWidget {
@@ -83,7 +85,9 @@ class SkillSection extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      SizedBox(height: ScreenHelper.isMobile(context) ? 15: 0,),
+                      SizedBox(
+                        height: ScreenHelper.isMobile(context) ? 15 : 0,
+                      ),
                       Text(
                         "SKILLS",
                         style: GoogleFonts.oswald(
@@ -93,7 +97,6 @@ class SkillSection extends StatelessWidget {
                           height: 1.3,
                         ),
                       ),
-                      
                       const SizedBox(
                         height: 15.0,
                       ),
@@ -107,7 +110,8 @@ class SkillSection extends StatelessWidget {
                                     Expanded(
                                       flex: skill.percentage,
                                       child: Container(
-                                        padding: const EdgeInsets.only(left: 10.0),
+                                        padding:
+                                            const EdgeInsets.only(left: 10.0),
                                         alignment: Alignment.centerLeft,
                                         height: 38.0,
                                         child: Text(skill.skill),

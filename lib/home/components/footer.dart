@@ -75,34 +75,34 @@ List<FooterItem> footerItems = [
       }
     },
   ),
-  FooterItem(
-    index: 4,
-    iconPath: "assets/linkedin.jpeg",
-    title: "LINKEDIN",
-    text1: "linkedin.com/in/dagi-moses-6aaab9252",
-    text2: "",
-    onTap: () async {
-      const url =
-          "https://linkedin.com/in/dagi-moses-6aaab9252"; // Replace with your URL
+  // FooterItem(
+  //   index: 4,
+  //   iconPath: "assets/linkedin.jpeg",
+  //   title: "LINKEDIN",
+  //   text1: "linkedin.com/in/dagi-moses-6aaab9252",
+  //   text2: "",
+  //   onTap: () async {
+  //     const url =
+  //         "https://linkedin.com/in/dagi-moses-6aaab9252"; // Replace with your URL
 
-      if (await canLaunchUrl(Uri.parse(url))) {
-        await launchUrl(Uri.parse(url));
-      } else {
-        throw 'Could not launch $url';
-      }
-    },
-  )
+  //     if (await canLaunchUrl(Uri.parse(url))) {
+  //       await launchUrl(Uri.parse(url));
+  //     } else {
+  //       throw 'Could not launch $url';
+  //     }
+  //   },
+  // )
 ];
 
 class Footer extends StatelessWidget {
+  const Footer({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: ScreenHelper(
-        desktop: _buildUi(kDesktopMaxWidth, context),
-        tablet: _buildUi(kTabletMaxWidth, context),
-        mobile: _buildUi(getMobileMaxWidth(context), context),
-      ),
+    return ScreenHelper(
+      desktop: _buildUi(kDesktopMaxWidth, context),
+      tablet: _buildUi(kTabletMaxWidth, context),
+      mobile: _buildUi(getMobileMaxWidth(context), context),
     );
   }
 }
@@ -125,8 +125,8 @@ Widget _buildUi(double width, BuildContext context) {
                   runSpacing: 20.0,
                   children: footerItems
                       .map(
-                        (footerItem) => Container(
-                          height: 125.0,
+                        (footerItem) => SizedBox(
+                          height: 128.0,
                           width: ScreenHelper.isMobile(context)
                               ? constraints.maxWidth / 2.0 - 20.0
                               : constraints.maxWidth / 4.0 - 20.0,

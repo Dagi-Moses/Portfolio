@@ -1,14 +1,14 @@
-import 'package:Dagi_Moses_Portfolio/home/components/canteen_app.dart';
-import 'package:Dagi_Moses_Portfolio/home/components/canteen_delivery.dart';
-import 'package:Dagi_Moses_Portfolio/home/components/punch_demo.dart';
-import 'package:flutter/gestures.dart';
+import 'package:Dagi_Moses_Portfolio/home/components/certifications.dart';
+import 'package:Dagi_Moses_Portfolio/home/components/projects.dart';
+
+import 'package:Dagi_Moses_Portfolio/utils/projects.dart';
+import 'package:Dagi_Moses_Portfolio/widgets/more_projects_text.dart';
+import 'package:Dagi_Moses_Portfolio/widgets/view_repo_text.dart';
+
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:url_launcher/url_launcher.dart';
-//import 'package:flutter_scroll_to/flutter_scroll_to.dart';
-import '../models/header_item.dart';
+
 import '../utils/constants.dart';
 import '../utils/globals.dart';
 import '../utils/screen_helper.dart';
@@ -21,39 +21,6 @@ import 'components/header.dart';
 import 'components/portfolio_stats.dart';
 import 'components/skill_section.dart';
 import 'components/testimonial_widget.dart';
-import 'components/twitter_clone.dart';
-
-final scrollControllerProvider =
-    StateProvider<ScrollController>((ref) => ScrollController());
-
-final keysProvider = Provider<List<GlobalKey>>((ref) => [
-      GlobalKey(),
-      GlobalKey(),
-      GlobalKey(),
-      GlobalKey(),
-      GlobalKey(),
-      GlobalKey(),
-      GlobalKey(),
-      GlobalKey(),
-      GlobalKey(),
-      GlobalKey(),
-      GlobalKey(),
-      GlobalKey(),
- 
-    ]);
-Size ?screenSize;
-final scrollToSectionProvider =
-    StateProvider<Future<void> Function(GlobalKey)>((ref) {
-  final _scrollController = ref.read(scrollControllerProvider);
-  return (GlobalKey key) async {
-    final RenderBox renderBox =
-        key.currentContext!.findRenderObject() as RenderBox;
-    final offset = screenSize!.width < 400 ? renderBox.localToGlobal(Offset.zero).dy +100:renderBox.localToGlobal(Offset.zero).dy;
-    _scrollController.animateTo(offset,
-        duration: const Duration(milliseconds: 600), curve: Curves.easeIn);
-    
-  };
-});
 
 class Home extends ConsumerStatefulWidget {
   @override
@@ -62,58 +29,12 @@ class Home extends ConsumerStatefulWidget {
 
 class _HomeState extends ConsumerState<Home> {
   @override
-  void initState() {
-    super.initState();
-    final scrollToSection = ref.read(scrollToSectionProvider);
-    final keys = ref.read(keysProvider);
-    setState(() {
-      headerItems = [
-        HeaderItem(
-            title: "MY INTRO",
-            onTap: () {
-              scrollToSection(keys[1]);
-            }),
-        HeaderItem(
-            title: "SERVICES",
-            onTap: () {
-              scrollToSection(keys[2]);
-            }),
-        HeaderItem(
-            title: "PORTFOLIO",
-            onTap: () {
-              scrollToSection(keys[3]);
-            }),
-        HeaderItem(
-          title: "EDUCATION",
-          onTap: () {
-            scrollToSection(keys[6]);
-          },
-        ),
-        HeaderItem(
-            title: "SKILLS",
-            onTap: () {
-              scrollToSection(keys[7]);
-            }),
-        HeaderItem(
-            title: "TESTIMONIALS",
-            onTap: () {
-              scrollToSection(keys[8]);
-            }),
-        HeaderItem(
-          title: "HIRE ME",
-          onTap: () {
-            scrollToSection(keys[9]);
-          },
-          isButton: true,
-        ),
-      ];
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
     screenSize = MediaQuery.of(context).size;
-    final _scrollController = ref.read(scrollControllerProvider);
+    final scrollController = ref.read(scrollControllerProvider);
+    final keys = ref.read(keysProvider); // 👈 CACHE this once!
+    final headerItems = ref.watch(headerItemsProvider);
+
     return Scaffold(
       key: Globals.scaffoldKey,
       endDrawer: Drawer(
@@ -125,7 +46,7 @@ class _HomeState extends ConsumerState<Home> {
             ),
             child: ListView.separated(
               itemBuilder: (BuildContext context, int index) {
-                return headerItems![index].isButton
+                return headerItems[index].isButton
                     ? MouseRegion(
                         cursor: SystemMouseCursors.click,
                         child: Container(
@@ -135,9 +56,9 @@ class _HomeState extends ConsumerState<Home> {
                           ),
                           padding: const EdgeInsets.symmetric(horizontal: 28.0),
                           child: TextButton(
-                            onPressed: headerItems![index].onTap,
+                            onPressed: headerItems[index].onTap,
                             child: Text(
-                              headerItems![index].title,
+                              headerItems[index].title,
                               style: const TextStyle(
                                 color: Colors.white,
                                 fontSize: 13.0,
@@ -148,9 +69,9 @@ class _HomeState extends ConsumerState<Home> {
                         ),
                       )
                     : ListTile(
-                        onTap: headerItems![index].onTap,
+                        onTap: headerItems[index].onTap,
                         title: Text(
-                          headerItems![index].title,
+                          headerItems[index].title,
                           style: const TextStyle(
                             color: Colors.white,
                           ),
@@ -162,113 +83,81 @@ class _HomeState extends ConsumerState<Home> {
                   height: 10.0,
                 );
               },
-              itemCount: headerItems!.length,
+              itemCount: headerItems.length,
             ),
           ),
         ),
       ),
       body: SingleChildScrollView(
-        controller: _scrollController,
+        controller: scrollController,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              key: ref.read(keysProvider)[0],
-              child: Header(),
-            ),
-            Container(key: ref.read(keysProvider)[1], child: Carousel()),
+            const Header(),
+            Container(key: keys[0], child: Carousel()),
             const SizedBox(
               height: 20.0,
             ),
-            Container(key: ref.read(keysProvider)[2], child: CvSection()),
+            Container(key: keys[1], child: CvSection()),
+            ListView.builder(
+              key: keys[2],
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              //  padding: const EdgeInsets.symmetric(horizontal: 35),
+              itemCount: ProjectText.projectNames.length,
+              itemBuilder: (context, index) {
+                final isLast = index == ProjectText.projectNames.length - 1;
 
-            Container(key: ref.read(keysProvider)[3], child:  PunchDemo()),
-            const SizedBox(
-              height: 70.0,
-            ),
-            Container(key: ref.read(keysProvider)[4], child: CanteenApp()),
-            const SizedBox(
-              height: 70.0,
-            ),
-            Container(key: ref.read(keysProvider)[5], child: TwitterClone()),
-            const SizedBox(
-              height: 70.0,
-            ),
-            Container(key: ref.read(keysProvider)[6], child: CanteenDelivery()),
-            const SizedBox(
-              height: 20.0,
-            ),
-            Center(
-              child: Text(
-                "Please Ask For More Projects",
-                style: GoogleFonts.oswald(
-                  color: Colors.white,
-                  fontWeight: FontWeight.w900,
-                  fontSize: 30.0,
-                  height: 1.3,
-                ),
-              ),
-            ),
-      
-            Center(
-              child: Column(
-                children: [
-                  const Text(
-                    "OR",
-                    style: TextStyle(
-                        color: Colors.white, height: 1.8, fontSize: 16),
-                  ),
-                  RichText(
-                    text: TextSpan(
-                      children: [
-                        TextSpan(
-                            recognizer: TapGestureRecognizer()
-                              ..onTap = () async {
-                                const url =
-                                    'https://github.com/Dagi-Moses'; // Replace with your URL
-      
-                                if (await canLaunchUrl(Uri.parse(url))) {
-                                  await launchUrl(Uri.parse(url));
-                                } else {
-                                  throw 'Could not launch $url';
-                                }
-                              },
-                            text: "View my Git Hub Repository",
-                            style: const TextStyle(
-                              decoration: TextDecoration.underline,
-                              decorationColor: kPrimaryColor,
-                              color: kPrimaryColor,
-                              fontWeight: FontWeight.w700,
-                              height: 1.8,
-                            )),
-                      ],
+                return Column(
+                  children: [
+                    Projects(
+                      projectDescription:
+                          ProjectText.projectDescriptions[index],
+                      gitHubUrl: ProjectText.projectGitHubUrls[index],
+                      liveDemoUrl: ProjectText.projectLiveDemoUrls[index],
+                      assetImage: ProjectText.assetImages[index],
+                      platform: ProjectText.platforms[index],
+                      projectName: ProjectText.projectNames[index],
+                      index: index,
                     ),
-                  ),
-                
-                ],
-              ),
+                    if (!isLast)
+                      const SizedBox(
+                          height:
+                              70.0), // 👈 spacing between, but not after last
+                  ],
+                );
+              },
             ),
-            Padding(
-              key: ref.read(keysProvider)[7],
-              padding: const EdgeInsets.symmetric(vertical: 28.0),
-              child: PortfolioStats(),
-            ),
-            const SizedBox(
-              height: 50.0,
-            ),
-            Container(
-                key: ref.read(keysProvider)[8], child: EducationSection()),
             SizedBox(
               height: ScreenHelper.isMobile(context) ? 0 : 50.0,
             ),
-            Container(key: ref.read(keysProvider)[9], child: SkillSection()),
+            const SizedBox(
+              height: 20.0,
+            ),
+            const MoreProjectsText(),
+            //const ViewRepoText(),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 28.0),
+              child: Container(key: keys[3], child: const PortfolioStats()),
+            ),
             const SizedBox(
               height: 50.0,
             ),
-          
-            Container(
-                key: ref.read(keysProvider)[10], child: TestimonialWidget()),
-            Container(key: ref.read(keysProvider)[11], child: Footer()),
+
+            Container(key: keys[5], child: const EducationSection()),
+            const SizedBox(
+              height: 50.0,
+            ),
+            Container(key: keys[4], child: const Certifications()),
+            SizedBox(
+              height: ScreenHelper.isMobile(context) ? 0 : 50.0,
+            ),
+            Container(key: keys[6], child: const SkillSection()),
+            const SizedBox(
+              height: 50.0,
+            ),
+            Container(key: keys[7], child: const TestimonialWidget()),
+            Container(key: keys[8], child: const Footer()),
           ],
         ),
       ),

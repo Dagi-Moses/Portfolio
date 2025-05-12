@@ -8,11 +8,13 @@ import '../../utils/screen_helper.dart';
 final List<Stat> stats = [
   Stat(count: "3", text: "Clients"),
   Stat(count: "15+", text: "Projects"),
-  Stat(count: "1", text: "Award"),
+  Stat(count: "4", text: "Certifications"),
   Stat(count: "3+", text: "Years\nExperience"),
 ];
 
 class PortfolioStats extends StatelessWidget {
+  const PortfolioStats({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Container(
